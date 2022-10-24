@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+#define FORI(i,a,b) for ( int i = a; i <= b; i++)
+using namespace std;
+
+main(){
+    int maxBag;
+    // nhap vao khoi luong toi da cua tui
+    cin >> maxBag;
+    int num;
+    // nhap vao so luong do vat can dem theo
+    cin >> num;
+    int weight[num],value[num];
+    FORI(i,1,num){
+    	// nhap vao lan luot khoi luong va gia tri cua do vat
+    	cin >> weight[i] >> value[i];
+	}
+    int maxv[num+1][maxBag+1];
+    FORI(i,0,num){
+    	maxv[i][0] = 0;
+	}
+	FORI(i,0,maxBag){
+    	maxv[0][i] = 0;
+	}
+    FORI(i,1,num){
+    	FORI(j,1,maxBag){
+    		maxv[i][j] = maxv[i-1][j];
+			if( weight[i] <= j ){
+				maxv[i][j] = max(maxv[i][j],maxv[i-1][j-weight[i]]+value[i]);
+			}
+		}
+	}
+	cout << maxv[num][maxBag];
+}
