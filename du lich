@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+#define FORI(i,a,b) for ( int i = a; i < b; i++)
+#define FORD(i,a,b) for ( int i = a; i >= b; i--)
+using namespace std;
+
+int num;
+int min = 0, sum = 0;
+
+void inlzation( int *time[], int *check ){
+	// khoi tao
+	time = new int *[num];
+	FORI(i,0,num){
+		time[i] = new int[num];
+	}
+	
+	check = new int[num];
+	FORI(i,0,num){ check[i] = false; }
+}
+
+void cancel( int *time[], int *check){
+	// giai phong bo nho
+	FORI(i,0,num){delete[] time[i];}
+	delete[] time;
+	delete[] check;
+}
+
+void Move( int *time[], int *check, int n ){
+	FORI(i,0,num){
+		if ( check[i] == false ){
+			sum += time[n][i];
+			Move(time,check,i);
+		}
+	}
+}
+
+main(){
+	// nhap so luong thanh pho
+	cin >> num;
+	int **time;	
+	int *check;
+	inlzation(time,check);
+	// nhap thoi gian di chuyen tu thanh pho i sang thanh pho j
+	FORI(i,0,num){
+		FORI(j,0,num){cin >> time[i][j];}
+	}
+	
+	Move(time,check,0);
+	cancel(time,check);
+}
