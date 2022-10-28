@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+#define FORI(i,a,b) for ( int i = a; i <= b; i++)
+using namespace std;
+int M, N;
+int maxDay = 0;
+int sum = 0;
+
+void Try( int arr[][100], int n, int check[] ){
+	if ( n == M + 1 ){
+		if (maxDay < sum){
+			maxDay = sum;
+		}
+		sum = 0;
+	}else{
+		int cked = 0;
+		FORI(i,1,N){
+			if ( arr[n][i] == 1 && check[i] == 1 ){
+				break;
+				cked = 1;
+			}
+		}
+		if ( cked == 0 ){
+			FORI(i,1,N){
+				if( arr[n][i] == 1 ){
+					check[i] = 1;
+					sum++;
+				}
+			}
+		}
+		Try(arr,n+1,check);
+	}
+}
+
+void con( int arr[][100], int check[]){
+	FORI(i,1,M-1){
+		FORI(j,1,N){
+			if( arr[i][j] == 1 ){
+				check[j] = 1;
+				sum++;
+			}else{
+				check[j] = 0;
+			}
+		}
+		cout << sum << " " << maxDay << endl;
+		Try(arr,i+1,check);
+	}
+}
+
+main(){
+	cin >> M >> N;
+	int arr[100][100];
+	// thue nhap 1 ko thue nhap 0
+	FORI(i,1,M){
+		FORI(j,1,N){
+			cin >> arr[i][j];
+		}
+	}
+	int check[N];
+	con(arr,check);
+	cout << endl << maxDay;
+}
