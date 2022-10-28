@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+#define FORI(i,a,b) for ( int i = a; i <= b; i++)
+using namespace std;
+
+int num;
+int sum = 0;
+int mintime = 99999;
+
+void Try( int time[][100], int check[], int n, int cnt ){
+	FORI(i,1,num){
+		if ( cnt == num ){
+			sum += time[n][0];
+			if ( sum < mintime ){
+				mintime = sum;
+			}
+			sum -= time[n][0];
+		}
+		if ( check[i] == false ){
+			sum += time[n][i];
+			check[i] = true;
+			cnt++;
+			Try(time,check,i,cnt);
+			check[i] = false;
+			sum -= time[n][i];
+			cnt--;
+		}
+	}
+}
+
+main(){
+	cin >> num;
+	int time[100][100];
+	FORI(i,1,num){
+		FORI(j,1,num){
+			cin >> time[i][j];
+		}
+	}
+	int check[num];
+	FORI(i,1,num){
+		check[i] = false;
+	}
+	Try(time,check,1,1);
+	cout << endl << mintime;
+}
