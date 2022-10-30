@@ -28,10 +28,12 @@ void Try( int time[][100], int check[], int n, int cnt ){
 }
 
 main(){
+	// nhap so nguoi 
 	cin >> num;
 	int time[100][100];
 	FORI(i,1,num){
 		FORI(j,1,num){
+			// nhap thoi gian nguoi i lam viec j
 			cin >> time[i][j];
 		}
 	}
