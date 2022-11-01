@@ -12,14 +12,14 @@ void Try( int arr[][100], int n, int check[] ){
 		}
 		sum = 0;
 	}else{
-		int cked = 0;
+		bool cked = false;
 		FORI(i,1,N){
 			if ( arr[n][i] == 1 && check[i] == 1 ){
+				cked = true;
 				break;
-				cked = 1;
 			}
 		}
-		if ( cked == 0 ){
+		if ( cked == false ){
 			FORI(i,1,N){
 				if( arr[n][i] == 1 ){
 					check[i] = 1;
@@ -41,21 +41,30 @@ void con( int arr[][100], int check[]){
 				check[j] = 0;
 			}
 		}
-		cout << sum << " " << maxDay << endl;
+	//	cout << sum << " " << maxDay << endl;
 		Try(arr,i+1,check);
 	}
 }
 
 main(){
+	// Nhap vao M la so nguoi thue may N la so ngay thue may
 	cin >> M >> N;
 	int arr[100][100];
 	// thue nhap 1 ko thue nhap 0
 	FORI(i,1,M){
 		FORI(j,1,N){
+			/*
+			Nhap vao khach hang thu i thue may vao ngay thu j
+			VD: arr[1][9] = 0;
+			Nguoi thu 1 khong thue may vao ngay thu 9 
+			arr[2][10] = 1;
+			Nguoi thu 2 thue may vao ngay thu 10
+			*/
 			cin >> arr[i][j];
 		}
 	}
 	int check[N];
+	FORI(i,1,N){ check[i] = false; }
 	con(arr,check);
 	cout << endl << maxDay;
 }
