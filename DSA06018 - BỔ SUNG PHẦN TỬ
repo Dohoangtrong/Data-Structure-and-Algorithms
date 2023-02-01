@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+main(){
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		set<int> s;
+		int a, min = INT_MAX, max = INT_MIN;
+		for ( int i = 0; i < n; i++){
+			cin >> a;
+			if(min>a){
+				min = a;
+			}
+			if( max < a ){
+				max = a;
+			}
+			s.insert(a);
+		}
+		cout << max - min + 1 - s.size() << endl;
+	}
+}
