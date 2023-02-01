@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool check = true;
+
+void print(int arr[], int n){
+	for ( int i = 0; i < n; i++){
+		cout << arr[i] << " ";
+	}
+	if ( check == false )  n--;
+	for (int i = n-1; i >= 0; i--){
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+}
+
+void Gen(int arr[], int m){
+	int n = m-1;
+	while(arr[n] == 1 && n > -1 ){
+		arr[n] = 0;
+		n--;
+	}
+	arr[n] = 1;
+	if ( n > -1 ){
+		print(arr,m);
+		Gen(arr,m);
+	}
+}
+
+int main(){
+	int n;
+	cin >> n;
+	int arr[1000] = {};
+	for ( int i = 0; i < n; i++){
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	if(n%2==1){
+		n/=2;
+		n++;
+		check = false;
+	}else{
+		n/=2;
+	}
+	Gen(arr,n);
+}
