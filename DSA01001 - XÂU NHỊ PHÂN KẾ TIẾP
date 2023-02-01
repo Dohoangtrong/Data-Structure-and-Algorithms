@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void Gen( string n ){
+	string cpy = "";
+	int leg = n.length()-1;
+	while( leg > -1 && n[leg] == '1' ){
+		n[leg] = '0';
+		leg--;
+	}
+	n[leg] = '1';
+	cout << n << endl;
+}
+
+main(){
+	int n;
+	cin >> n;
+	cin.ignore();
+	string num;
+	for ( int i = 0; i < n; i++){
+		getline(cin,num);
+		Gen(num);
+	}
+}
+
