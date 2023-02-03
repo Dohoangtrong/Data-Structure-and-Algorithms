@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+#define FORI(i,a,b) for ( int i = a; i <= b; i++)
+using namespace std;
+
+main(){
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		cin.ignore();
+		string a;
+		getline(cin,a);
+		set<char> s;
+		int lg = a.length();
+		FORI(i,0,lg-1){
+			if ( a[i] != ' ' ){
+				s.insert(a[i]);
+			}
+		}
+		for (auto x: s) {
+        	cout << x << " ";
+  	  	}
+  	  	cout << endl;
+	}
+}
