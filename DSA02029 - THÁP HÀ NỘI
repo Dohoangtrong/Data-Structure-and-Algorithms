@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// a la cot dau, b la cot trung gian, c la cot cuoi
+void trsfer(int n, char a, char b, char c){
+	if ( n == 1 ){
+		cout << a << " -> " << c << endl;
+		return;
+	}
+	trsfer(n-1, a, c, b);
+	trsfer(1, a, b, c);
+	trsfer(n-1, b, a, c);
+}
+
+int main(){
+	int n;
+	cin >> n;
+	int count = pow(2,n) - 1;
+	char a = 'A', b = 'B', c = 'C';
+	trsfer(n,a,b,c);
+}
+
+
+
