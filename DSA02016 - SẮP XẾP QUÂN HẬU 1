@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+bool a[21] = {}, b[21] = {}, c[21] = {};
+bool check(int j, int i){
+	if ( a[j] == 0 && b[j+i] == 0 && c[j-i+n] == 0){
+		return true;
+	}
+	return false;
+}
+void backtrack(int &cnt, int i){
+	if ( i > n ){
+		cnt++;
+		return;
+	}else{
+		for(int j = 1; j <= n; j++){
+			if (check(j,i)){
+				a[j] = 1;
+				b[j+i] = 1;
+				c[j-i+n] = 1;
+				backtrack(cnt,i+1);
+				a[j] = 0;
+				b[j+i] = 0;
+				c[j-i+n] = 0;
+			}
+		}
+	}
+}
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int count = 0;
+		cin >> n;
+		backtrack(count,1);
+		cout << count << endl;
+	}
+}
+
