@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int t;
+	cin >> t;
+	cin.ignore();
+	while(t--){
+		stack<string> ss;
+		string s;
+		getline(cin,s);
+		string cpy = "";
+		for( int i = 0; i < s.length(); i++){
+			if ( s[i] != ' '){
+				cpy += s[i];
+			}else{
+				ss.push(cpy);
+				cpy = "";
+			}
+		}
+		ss.push(cpy);
+		while(ss.size()){
+			cout << ss.top() << " ";
+			ss.pop();
+		}
+		cout << endl;
+	}
+}
+
+
+
