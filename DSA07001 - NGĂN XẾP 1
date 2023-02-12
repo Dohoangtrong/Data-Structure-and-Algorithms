@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	string s;
+	stack<string> stk;
+	vector<int> v;
+	while (cin>>s){
+		stk.push(s);
+		string a = stk.top();
+		stk.pop();
+		int n;
+		
+		if(a=="push"){
+			cin >> n;
+			cin.ignore();
+			v.push_back(n);
+		}
+		if (!v.empty()){
+			if(a=="show"){
+				for ( int i = 0; i < v.size(); i++)
+					cout << v[i] << " ";				
+				cout << endl;
+			}else if (a=="pop"){
+				v.pop_back();
+			}
+		}else{
+			cout << "empty" << endl;
+			break;
+		}
+	}
+}
