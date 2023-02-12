@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	while (t--){
+		queue< pair<int, int > > q;
+		pair<int,int> p;
+		int S, T;
+		cin >> S >> T;
+		int arr[20000] = {};
+		int k = T / (S*2) ;
+		if ( k > 10 ){
+			for (int i = 0; i < k; i++){
+				S *= 2;
+			}
+		}else{
+			k = 0;
+		}
+		p.first = S;
+		p.second = k;
+		q.push(p);
+		while(!q.empty()){
+			p = q.front();
+			if ( p.first == T ){
+				cout << p.second << endl;
+				break;
+			}
+			q.pop();
+			if ( p.first < T && arr[p.first*2] == 0 ){
+				arr[p.first] = 1;
+				q.push(make_pair(p.first*2,p.second+1));
+			}
+			if ( p.first > 1 && arr[p.first-1] == 0 ){
+				arr[p.first] = 1;
+				q.push(make_pair(p.first-1,p.second+1));
+			}
+		}
+	}
+}
