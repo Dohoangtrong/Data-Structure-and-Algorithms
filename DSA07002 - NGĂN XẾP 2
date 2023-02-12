@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	cin.ignore();
+	string s;
+	stack<string> stk;
+	vector<int> v;
+	while (t--){
+		cin >> s;
+		stk.push(s);
+		string a = stk.top();
+		stk.pop();
+		int n;
+		if(a=="PUSH"){
+			cin >> n;
+			cin.ignore();
+			v.push_back(n);
+		}
+		if ( a=="PRINT"){
+			if (!v.empty()){
+				cout << v[v.size()-1];
+				cout << endl;
+			}else{
+				cout << "NONE" << endl;
+			}
+		}
+		if ( !v.empty() && a=="POP"){
+			v.pop_back();
+		}
+	}
+}
+
