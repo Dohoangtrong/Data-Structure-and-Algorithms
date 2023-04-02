@@ -1,0 +1,50 @@
+/*
+Một trong những cách biểu diễn số khá phổ biến trong các đồng hồ điện tử là sử dụng que diêm. Các ký tự số sẽ được biểu diễn như
+sau: 1 2 3 4 5 6 7 8 9 0
+Với một số lượng que diêm cho trước, hãy các định số nhỏ nhất và số lớn nhất mà bạn có thể biểu diễn được. Chú ý: bạn không được
+phép để thừa que diêm nào khi xếp
+Input : Dòng đầu tiên ghi số bộ test, không lớn hơn 100. Mỗi bộ test viết trên một dòng một số nguyên duy nhất không lớn hơn 100 là số
+que diêm bạn có.
+Output: Với mỗi bộ test, in ra màn hình 1 dòng bao gồm hai số nguyên theo thứ tự: số nhỏ nhất và số lớn nhất có thể biểu diễn bởi số
+que diêm cho bởi input. Các số không bắt đầu bởi số 0.
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+void findMax(int n){
+	int k = n/2;
+	if ( n % 2 == 0 ) cout << 1;
+	else cout << 7;
+	for ( int i = 0; i < k-1; i++) cout << 1;
+	cout << endl;
+}
+void findMin(int n){
+	int tmp = n % 7, k = n/7;
+	switch(tmp){
+		case 1: tmp = 10; k-=1; break;
+		case 2: tmp = 1; break;
+		case 3: tmp = 7; break;
+		case 4: tmp = 4; break;
+		case 5: tmp = 2; break;
+		case 6: tmp = 6; break;
+	}
+	if(tmp!=0) cout << tmp;
+	for ( int i = 0; i < k; i++) cout << 8;
+	cout << " ";
+}
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		if(n<=1) cout << "Not Found" << endl;
+		else{
+			findMin(n);
+			findMax(n);
+		}
+	}
+} 
