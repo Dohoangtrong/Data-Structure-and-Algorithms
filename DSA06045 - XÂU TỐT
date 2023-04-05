@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	long long n, l, cnt = 1;
+	long long res = 0;
+	cin >> n;
+	string s;
+	cin >> s;
+	l = s.length();
+	vector<int> v;
+  // đếm các xâu con >= 1 có các kí tự liên tiếp giống nhau
+  //VD: AABBAAABBBABA -> 2 - 2 - 3 - 3 - 1 - 1 - 1
+	for ( int i = 1; i < l; i++){
+		if ( s[i] == s[i-1] ){
+			cnt++;
+		}else{
+			v.push_back(cnt);
+			cnt=1;
+		}
+	}
+	v.push_back(cnt);
+	l = v.size();
+  // VD: BBBAAA -> xau con là BBBA BBA BA BAA BAAA (tính theo 2 chữ cái ở giữa thêm dần sang 2 bên)
+  // res tổng là số xâu xấu
+	for ( int i = 0; i < l-1; i++){
+		res += v[i] + v[i+1] - 1;
+	}
+  // n*(n-1)/2 là số xâu con lớn hơn 1 trong xâu s ban đầu
+  cout << n*(n-1)/2 - res;
+} 
+
