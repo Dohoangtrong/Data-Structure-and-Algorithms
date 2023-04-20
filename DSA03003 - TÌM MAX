@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+	int t;
+	cin >> t;
+	long long module = 1e9 + 7;
+	while(t--){
+		int n;
+		cin >> n;
+		int ar[n];
+		for( int i = 0; i < n; i++) cin >> ar[i];
+		sort(ar,ar+n);
+		long long sum = 0;
+		for( int i = 0; i < n; i++){
+			sum += (long long)ar[i]*i;
+			sum %= module;
+		}
+		cout << sum << endl;
+	}	
+}
+
