@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int n;
+    cin >> n;
+    cin.ignore();
+    string a;
+    cin >> a;
+    int c1 = 0, c2 = 0, c3 = 0;
+    for ( int i = 0; i < n; i++){
+    	if ( a[i] == 'T' ){ c2++; }
+    	else if ( a[i] == 'X'){ c1++; }
+    	else{ c3++; }
+	}
+	int cnt = 0;
+	for ( int i = 0; i < c1; i++){
+		if ( a[i] == 'T' ){
+			for ( int j = c1; j < n; j++)
+				if ( a[j] == 'X' ){ swap(a[i],a[j]); cnt++; break; }
+		}else if ( a[i] == 'D' ){
+			for ( int j = n-1; j >= c1; j--)
+				if ( a[j] == 'D' ){ swap(a[i],a[j]); cnt++; break; }
+		}
+	}
+	for ( int i = c1; i < c1+c2; i++){
+		if (a[i] != 'T') cnt++;
+	}
+	cout << cnt << endl;
+}
+
+//XDTXTDTXTDT 
+//4
