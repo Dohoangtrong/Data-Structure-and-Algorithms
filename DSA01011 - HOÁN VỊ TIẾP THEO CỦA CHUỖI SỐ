@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n, ok = 0;
+		cin >> n;
+		cin.ignore();
+		string a;
+		cin >> a;
+		int num = a.length();
+		int k = num-2;
+		while(a[k] >= a[k+1]){
+			k--;
+		}
+		if ( k < 0 ) ok = 1;
+		if (ok){
+			cout << n << " BIGGEST";
+		}else{
+			int h = num-1;
+			while(a[h] <= a[k]){
+				h--;
+			}
+			swap(a[k],a[h]);
+			h = num-1; k++;
+			while(k<h){
+				swap(a[k],a[h]);
+				k++; h--;
+			}
+			cout << n << " ";
+			for ( int i = 0; i < num; i++) cout << a[i];
+		}
+		cout << endl;
+	}   
+}
