@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int m, n;
+	cin >> n >> m;
+	int arr[1003];
+	if ( m > 9*n || m == 0 ){
+		cout << -1 << " " << -1 << endl;
+	}else{
+		arr[0] = 1;
+		for ( int i = 1; i < n; i++)
+			arr[i] = 0;
+		m--;
+		for ( int i = n-1; i >= 0; i--)
+			if ( arr[i] < 10 && m > 9 ){
+				arr[i]+=9;
+				m-=9;
+			}else if ( arr[i] < 10 && m <= 9 ){
+				arr[i]+=m;
+				break;
+			}
+		for ( int i = 0; i < n; i++)
+			cout << arr[i];
+		cout << " ";
+		int l = 0;
+		for ( int i = n-1; i >= 0; i--){
+			while(arr[i]!=9 && i > l && arr[l] != 0){
+				if ( arr[l] > 0 ){
+					arr[l]--;
+					arr[i]++;
+				}else{
+					l++;
+				}
+			}
+		}
+		for ( int i = n-1; i >= 0; i--){
+			cout << arr[i];
+		}
+	}
+}
+
+
+
