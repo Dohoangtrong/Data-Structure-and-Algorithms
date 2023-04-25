@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int V,E;
+		vector<int> v[1003];
+		int vistd[1003] = {};
+    	cin >> V >> E;
+		int a, b;
+		for(int i = 0; i < E; i++){
+			cin >> a >> b; 
+			v[a].push_back(b); 
+			v[b].push_back(a);
+		}
+		int s = 0;
+		queue<int> Q;
+		for ( int i = 1; i <= V; i++){
+			if ( !vistd[i] ){
+				Q.push(i);
+				vistd[i] = 1;
+				while(!Q.empty()){
+					int a = Q.front();
+					Q.pop();
+					for (auto x : v[a] ){
+						if ( vistd[x] == 0 ){
+							Q.push(x);
+							vistd[x] = 1;
+						}
+					}
+				}
+				s++;
+			}
+		}
+		cout << s << endl;
+	}
+}
