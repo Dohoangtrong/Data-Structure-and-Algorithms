@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--){
+    	int n;
+    	cin >> n;
+    	int a, m;
+    	queue<int> Q;
+    	for ( int i = 0; i < n; i++){
+    		cin >> a;
+    		switch(a){
+    			case 1:
+    				cout << Q.size() << endl;
+    				break;
+    			case 2:
+    				if ( Q.empty() ) cout << "YES" << endl;
+    				else cout << "NO" << endl;
+    				break;
+    			case 3:
+    				cin >> m;
+    				Q.push(m);
+    				break;
+    			case 4:
+    				if ( !Q.empty() ) Q.pop();
+    				break;
+    			case 5:
+    				if (Q.empty()) cout << -1 << endl;
+    				else cout << Q.front() << endl;
+    				break;
+    			case 6:
+    				if (Q.empty()) cout << -1 << endl;
+    				else cout << Q.back() << endl;
+    				break;
+    				
+			}
+		}
+	}
+}
+
