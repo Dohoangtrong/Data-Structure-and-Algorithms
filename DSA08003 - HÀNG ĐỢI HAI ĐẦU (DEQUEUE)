@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int n, b;
+    cin >> n;
+    string a;
+    deque<int> D;
+    for ( int i = 0; i < n; i++){
+    	cin.ignore();
+    	cin >> a;
+    	if ( a == "PUSHBACK"){
+    		cin >> b;
+    		D.push_back(b);
+		}else if ( a == "PUSHFRONT"){
+			cin >> b;
+			D.push_front(b);
+		}
+		else if ( a == "POPFRONT"){
+			if (!D.empty()) D.pop_front();
+		}
+		else if ( a == "POPBACK"){
+			if (!D.empty()) D.pop_back();
+		}else if (a == "PRINTFRONT") {
+			if (D.empty())  cout << "NONE" << endl;
+			else cout << D.front() << endl;
+		}else if (a == "PRINTBACK") {
+			if (D.empty())  cout << "NONE" << endl;
+			else cout << D.back() << endl;
+		}
+    	
+	}
+}
+
