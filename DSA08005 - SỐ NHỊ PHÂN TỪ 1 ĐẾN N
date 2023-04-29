@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int n;
+    	cin >> n;
+    	queue<string> Q;
+    	string a = "1";
+    	Q.push(a);
+    	while(n--){
+    		a = Q.front();
+    		cout << a << " ";
+    		Q.pop();
+    		Q.push(a+'0');
+    		Q.push(a+'1');
+		}
+		cout << endl;
+	}
+}
+
