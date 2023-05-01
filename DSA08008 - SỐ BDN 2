@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		queue<long long> Q;
+		Q.push(1);
+		while(true){
+			long long a = Q.front();
+			Q.pop();
+			if ( a % n == 0 ){
+				cout << a << endl;
+				break;
+			}
+			Q.push(a*10);
+			Q.push(a*10+1);
+		}
+	}
+}
+  
+// 1
+// 10 11
+// 100 101 110 111
+// 1000 1001 1010 1011 1100 1101 1110 1111 
+// 10000 10001 10010 10011 10100 10101 10110 10111
