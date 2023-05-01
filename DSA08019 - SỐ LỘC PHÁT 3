@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while (t--){
+       	queue<string> Q;
+       	vector<string> v;
+		int n;
+       	cin >> n;
+       	Q.push("6");
+       	Q.push("8");
+       	while(!Q.empty()){
+       		string a = Q.front();
+       		Q.pop();
+       		v.push_back(a);
+       		if ( a.size() < n ){
+       			Q.push(a+'6');	
+       			Q.push(a+'8');	
+			}
+		}
+		int l = v.size();
+		cout << l << endl;
+		for ( int i = l-1; i >= 0; i--){
+			cout << v[i] << " ";
+		}
+		cout << endl;
+    }
+}
+
