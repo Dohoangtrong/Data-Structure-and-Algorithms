@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int n;
+	cin >> n;
+	vector<int> v;
+	int a;
+	for ( int i = 0; i < n; i++){
+		cin >> a;
+		v.push_back(a);
+	}
+	vector<int> c;
+	int check[10000] = {};
+	for ( int i = 0; i < v.size(); i++){
+		if ( check[v[i]] == 0 ){
+			c.push_back(v[i]);
+			check[v[i]] = 1;
+		}
+	}
+	for ( int i = 0; i < c.size(); i++){
+		cout << c[i] << " ";
+	}
+	cout << endl;
+}
+
