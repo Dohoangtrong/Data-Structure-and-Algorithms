@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> adj[1005];
+int visited[1005] = {};
+
+void DFS(int u){
+	visited[u] = 1;
+	for ( int i : adj[u]){
+		if ( visited[i] == 0 ){
+			DFS(i);
+		}
+	}
+} 
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int v,e,a,b,x,y;
+		cin >> v >> e >> x >> y;
+		for ( int i = 1; i <= v; i++) adj[i].clear();
+		for ( int i = 0; i < e; i++){
+			cin >> a >> b;
+			adj[a].push_back(b);
+		}
+		int cnt = 0;
+		for ( int i = 1; i <= v; i++){
+			memset(visited,0,sizeof(visited));
+			visited[i] = 1;
+			DFS(x);
+			if ( visited[y] == 0 ) cnt++;
+		}
+		cout << cnt << endl;
+	}
+}
