@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr[30], n, m;
+char x = '@';
+void input(){
+	cin >> n >> m;
+    for ( int i = 1; i <= m; i++) arr[i] = i;
+}
+void op(){
+	for ( int i = 1; i <= m; i++) cout << char(arr[i]+64);
+	cout << endl;
+}
+
+void Gen (){
+	op();
+	for ( int i = m; i >= 1; i--){
+		if ( arr[i] != n-m+i ){
+			arr[i]++;
+			for ( int j = i+1; j <= m; j++) arr[j] = arr[j-1]+1;
+			break;
+		}
+	}
+	if(arr[1]!=n-m+1) Gen();
+	else op();
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	input();
+    	Gen();
+    	cout << endl;
+	}
+}
+
+
