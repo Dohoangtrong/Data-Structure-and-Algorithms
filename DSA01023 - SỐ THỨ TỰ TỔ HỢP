@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr[30], n, m;
+int cp[30], cnt, check;
+void input(){
+	cin >> n >> m;
+    for ( int i = 1; i < m; i++) arr[i] = i;
+    arr[m] = m-1;
+    for ( int i = 1; i <= m; i++) cin >> cp[i];
+}
+void compare(){
+	for ( int i = 1; i <= m; i++){
+		if ( arr[i] != cp[i] ){
+			check = 1;
+			cnt++;
+			return;
+		}
+	}
+}
+
+void Gen (){
+	check = 0;
+	for ( int i = m; i >= 1; i--){
+		if ( arr[i] != n-m+i ){
+			arr[i]++;
+			for ( int j = i+1; j <= m; j++) arr[j] = arr[j-1]+1;
+			break;
+		}
+	}
+	compare();
+	if(arr[1]!=n-m+1 && check == 1) Gen();
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	cnt = 1;
+    	input();
+    	Gen();
+    	cout << cnt << endl;
+	}
+}
+
+
