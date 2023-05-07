@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr[30], cmp[30], n;
+int cnt, check;
+void input(){
+	cin >> n;
+	for ( int i = 1; i <= n; i++) cin >> cmp[i];
+    for ( int i = 1; i <= n; i++) arr[i] = i;
+    for ( int i = 1; i <= n; i++){
+		if (cmp[i]!=arr[i]){
+			check = 1;
+			break;
+		}
+	}
+}
+void Gen (){
+	int ok = 0;
+	int i = n-1;
+	while(arr[i+1] < arr[i]){
+		i--;
+	}
+	if ( i == 0 ) ok = 1;
+	int j = n;
+	while(arr[j] < arr[i]){
+		j--;
+	}
+	swap(arr[j],arr[i]);
+	i++;
+	j = n;
+	while(i<j){
+		swap(arr[i],arr[j]);
+		i++;j--;
+	}
+	cnt++;
+	for ( int i = 1; i <= n; i++){
+		if (cmp[i]!=arr[i]){
+			ok = 1;
+			break;
+		}
+	}
+	if ( ok == 0 ) cout << cnt << endl;
+	else Gen();
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	cnt = 1;
+    	check = 0;
+    	input();
+    	if (!check) cout << cnt << endl;
+    	else Gen();
+	}
+}
+
+
