@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr[30], n;
+int ok;
+void input(){
+	cin >> n;
+    for ( int i = 1; i <= n; i++) arr[i] = i;
+}
+void op(){
+	for ( int i = 1; i <= n; i++) cout << arr[i];
+	cout << " ";
+}
+
+void Gen (){
+	op();
+	int i = n-1;
+	while(arr[i+1] < arr[i]){
+		i--;
+	}
+	if ( i == 0 ) ok = 1;
+	int j = n;
+	while(arr[j] < arr[i]){
+		j--;
+	}
+	swap(arr[j],arr[i]);
+	i++;
+	j = n;
+	while(i<j){
+		swap(arr[i],arr[j]);
+		i++;j--;
+	}
+	if (!ok) Gen();
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	ok = 0;
+    	input();
+    	Gen();
+    	cout << endl;
+	}
+}
+
