@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+#define FORI(i,a,b) for(int i = a; i <= b; i++)
+using namespace std;
+int arr[100], c[100], n, k;
+int cnt;
+void input(){
+	cin >> n >> k;
+	FORI(i,1,k) cin >> arr[i];
+	FORI(i,1,k) c[i] = arr[i];
+}
+void Gen(){
+	int l = k;
+	while(arr[l] == n-k+l){
+		l--;
+	}
+	if (l==0){
+		cnt = k;
+		cout << cnt << endl;
+		return;
+	}
+	arr[l]++;
+	FORI(i,l+1,k) arr[i] = arr[i-1]+1;
+	FORI(i,1,k){
+		FORI(j,1,k)
+			if (arr[i] == c[j]){
+				cnt++;
+				break;
+			}
+	}
+	cout << k-cnt << endl;
+}
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	cnt = 0;
+    	input();
+    	Gen();
+	}
+}
+
