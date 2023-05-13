@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+   	int t;
+   	cin >> t;
+   	cin.ignore();
+   	while(t--){
+   		string s;
+   		cin >> s;
+		int ok = 0;	
+		while(1){
+			cout << s << " ";
+			int i = s.length()-2;
+			while(s[i+1] < s[i]){
+				i--;
+			}
+			if ( i < 0 ) ok = 1;
+			int j = s.length()-1;
+			while(s[j] < s[i]){
+				j--;
+			}
+			swap(s[j],s[i]);
+			i++;
+			j = s.length()-1;
+			while(i<j){
+				swap(s[i],s[j]);
+				i++;j--;
+			}
+			if (ok) break;
+		}
+		cout << endl;
+	}
+}
+
+
