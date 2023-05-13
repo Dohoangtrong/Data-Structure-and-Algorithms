@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n, arr[30];
+vector<string> vSt;
+void input(){
+	cin >> n;
+	for ( int i = 0; i < n; i++){
+		cin >> arr[i];
+	}
+}
+void Gen(int i, string a){
+	string b;
+	for ( int j = i+1; j < n; j++){
+		b = a;
+		if ( arr[j] > arr[i] ){
+			b += " ";
+			b += to_string(arr[j]);
+			vSt.push_back(b);
+			Gen(j,b);
+		}
+	}
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    input();
+    for ( int i = 0; i < n; i++){
+    	string a = to_string(arr[i]);
+    	Gen(i,a);
+	}
+	sort(vSt.begin(),vSt.end());
+	for ( int i = 0; i < vSt.size(); i++){
+		cout << vSt[i] << endl;
+	}
+}
