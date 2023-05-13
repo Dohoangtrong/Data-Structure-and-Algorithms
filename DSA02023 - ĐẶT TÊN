@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr[30], n, m, l;
+vector<string> v;
+void input(){
+	set<string> s;
+	cin >> n >> m;
+	cin.ignore();
+    for ( int i = 1; i <= m; i++) arr[i] = i;
+    string a;
+    for ( int i = 0; i < n; i++){
+    	cin >> a;
+    	s.insert(a);
+	}
+	for ( auto x : s ){
+		v.push_back(x);
+	}
+	l = v.size();
+}
+void op(){
+	for ( int i = 1; i <= m; i++) cout << v[arr[i]-1] << " ";
+	cout << endl;
+}
+
+void Gen (){
+	op();
+	for ( int i = m; i >= 1; i--){
+		if ( arr[i] != l-m+i ){
+			arr[i]++;
+			for ( int j = i+1; j <= m; j++) arr[j] = arr[j-1]+1;
+			break;
+		}
+	}
+	if(arr[1]!=l-m+1) Gen();
+	else op();
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    input();
+    Gen();
+}
+
+
