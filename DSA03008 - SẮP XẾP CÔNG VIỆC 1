@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct work{
+	int st, ed;
+} arr[1002];
+
+bool cmp(work a, work b){
+	return a.ed < b.ed;
+}
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		for ( int i = 0; i < n; i++) cin >> arr[i].st;
+		for ( int i = 0; i < n; i++) cin >> arr[i].ed;
+		sort(arr,arr+n,cmp);
+		int cnt = 1;
+		int a = arr[0].ed;
+		for ( int i = 1; i < n; i++){
+			if ( arr[i].st >= a ){
+				cnt++;
+				a = arr[i].ed;
+			}
+		}
+		cout << cnt << endl;
+	}
+}
+
