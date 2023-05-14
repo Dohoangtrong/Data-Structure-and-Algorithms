@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		long long value = 0;
+		cin >> n;
+		int arr[n+1];
+		for ( int i = 0; i < n; i++) cin >> arr[i];
+		priority_queue<int, vector<int>, greater<int>> Q;
+		for ( int i = 0; i < n; i++) Q.push(arr[i]);
+		while(Q.size()>1){
+			int a = Q.top();
+			Q.pop();
+			int b = Q.top();
+			Q.pop();
+			value = value + a + b;
+			Q.push(a+b);
+		}
+		cout << value << endl;
+	}
+}
+
