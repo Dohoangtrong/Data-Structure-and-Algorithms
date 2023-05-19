@@ -1,0 +1,80 @@
+Bài toán dãy con tăng dài nhất khá quen thuộc trong bài học về thuật toán quy hoạch động. Tuy nhiên, khi độ dài dãy lên đến 105 phần tử thì thuật toán này không khả thi.
+
+Dãy con tăng phiên bản tham lam được mô tả như sau:
+
+Luôn lấy phần tử  đầu tiên của dãy
+Với mỗi bước, lấy số tiếp theo trong dãy lớn hơn số đã có trong bước trước.
+Cụ thể hơn, dãy được chọn là: ai1, ai2, . . . , aik với:
+
+i1 = 1
+Với mỗi chỉ số j (1 ≤ j < k), ij+1 được chọn sẽ là chỉ số nhỏ nhất lớn hơn ij thoả mãn aij < aij+1
+aik ≥ aℓ với tất cả ℓ > ik
+Hãy liệt kê tất cả các dãy con tăng tạo được theo cách trên. Biết rằng sau mỗi bước, dãy được chọn sẽ được xoá ra khỏi dãy ban đầu và thuật toán dừng lại khi dãy ban đầu không còn phần tử nào nữa.
+
+Input
+
+Dòng đầu ghi số N là số phần tử của dãy ( 1 ≤ N ≤ 2*105)
+
+Dòng thứ 2 ghi N số của dãy a (0 ≤ ai ≤ 109).
+
+Output
+
+Dòng đầu ghi số lượng dãy tăng tạo được.
+
+Mỗi dòng tiếp theo ghi ra một dãy tăng theo thứ tự tạo được từ cách tham lam như trong mô tả đề bài.
+
+Ví dụ
+Input:
+7
+2 2 1 5 3 4 6
+Output:
+3
+2 5 6
+2 3 4
+1
+Input:
+7
+8 6 7 5 3 0 9
+Output:
+5
+8 9
+6 7
+5
+3
+0
+
+----code---
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int n, b;
+	cin >> n;
+	int arr[n];
+	for ( int i = 0; i < n; i++){
+		cin >> arr[i];
+	}
+	vector<int> v[110005];
+	int ck[n];
+	memset(ck,-1,sizeof(ck));
+	ck[0] = arr[0];
+	int si = 0;
+	v[0].push_back(arr[0]);
+	for ( int i = 1; i < n; i++){
+		int j = 0;
+		while(ck[j]>=arr[i]){
+			j++;
+		}
+		if ( si < j ) si = j;
+		ck[j] = arr[i];
+		v[j].push_back(arr[i]);
+	}
+
+	cout << si+1 << endl;
+	for ( int i = 0; i <= si; i++){
+		for ( int j = 0; j < v[i].size(); j++){
+			cout << v[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
