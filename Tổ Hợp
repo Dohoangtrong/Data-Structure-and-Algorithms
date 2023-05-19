@@ -1,0 +1,57 @@
+Tổ Hợp
+Cho xâu ký tự S có N chữ số thập phân. Hãy liệt kê các số khác nhau có K chữ số lấy từ K vị trí khác nhau trong xâu S theo thứ tự từ nhỏ đến lớn.
+
+Input
+
+Dòng đầu ghi số bộ test T (T < 10).
+
+Dòng thứ 2 ghi xâu S sau đó là một khoảng trống rồi đến số K (1 < K < N < 20).
+
+Output
+
+Với mỗi bộ test, ghi ra lần lượt các số khác nhau tạo được theo thứ tự từ nhỏ đến lớn.
+
+Input:
+2
+1234 2
+4444 2
+
+Output:
+12
+13
+14
+23
+24
+34
+44
+
+
+---code----
+#include<bits/stdc++.h>
+using namespace std;
+int k, l;
+string s;
+set<string> SS;
+void Try(int i, string a, int cnt){
+	if ( cnt == k ){
+		SS.insert(a);
+		return;
+	}
+	if ( cnt > k || i >= l ) return;
+	Try(i+1,a+s[i],cnt+1);
+	Try(i+1,a,cnt);
+}
+
+int main() {
+	int t; cin >> t;
+	while (t--) {
+		cin >> s >> k;
+		l = s.length();
+		Try(0,"",0);
+		for ( auto x : SS ){
+			cout << x << endl;
+		}
+		SS.clear();
+	}
+	return 0;
+}
