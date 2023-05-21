@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long mod = 1e9 +7;
+long long x;
+long long process(long long a, long long n){
+	if ( n == 1 ) return a;
+	x = process(a,n/2);
+	if ( n % 2 == 0 ){
+		return x % mod * x % mod;
+	}else{
+		return (x % mod * x % mod * a % mod ) % mod;
+	}
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	long long n, a;
+    	cin >> n;
+    	a = n;
+    	long long m = 0;
+    	while(n>0){
+    		m = m*10+n%10;
+    		n/=10;
+		}
+    	cout << process(a,m) << endl;
+	}
+}
