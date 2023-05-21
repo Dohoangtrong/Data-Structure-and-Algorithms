@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long n, k;
+long long process(long long a){
+	long long b = pow(2,a-1);
+	if ( k == b ) return a;
+	if ( k < b ){
+		return process(a-1);
+	}
+	k -= b;
+	return process(a-1);
+}
+
+main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	cin >> n >> k;
+    	long long a = process(n);
+    	cout << char(a+64) << endl;
+	}
+}
+
