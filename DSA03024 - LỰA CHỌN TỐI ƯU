@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct p{
+	int  first, second;
+} arr[100007];
+bool cmp(p a, p b){
+	return a.second < b.second;
+}
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		for ( int i = 0; i < n; i++) cin >> arr[i].first >> arr[i].second;
+		sort(arr,arr+n,cmp);
+		int k = arr[0].second;
+		int cnt = 1;
+		for ( int i = 0; i < n; i++){
+			if ( arr[i].first >= k ){
+				cnt++;
+				k = arr[i].second;
+			}
+		}
+		cout << cnt << endl;
+	}
+}
+
