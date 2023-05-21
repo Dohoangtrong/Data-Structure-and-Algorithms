@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+char process(int n, long long k, long long arr[]){
+	if ( n == 1 ) return 'A';
+	else if ( n == 2 ) return 'B';
+	if ( k > arr[n-2] ) return process(n-1,k-arr[n-2],arr);
+	return process(n-2,k,arr);
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    long long arr[93];
+    arr[1] = 1;
+    arr[2] = 1;
+    for ( int i = 3; i < 93; i++){
+    	arr[i] = arr[i-1] + arr[i-2];
+	}
+    while(t--){
+    	int n;
+    	long long k;
+    	cin >> n >> k;
+    	cout << process(n,k,arr) << endl;
+	}
+}
