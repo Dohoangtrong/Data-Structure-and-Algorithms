@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long MOD = 1e9+7;
+
+class matrix {
+public:
+    long long x[2][2];
+    void initi(){
+    	x[0][0] = 0, x[0][1] = 1;
+    	x[1][0] = 1, x[1][1] = 1;
+	}
+    matrix operator*(matrix other) {
+        matrix res;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                long long q = 0;
+                for (int k = 0; k < 2; k++) {
+                    q = (q % MOD + x[i][k] * other.x[k][j] % MOD ) % MOD;
+                }
+                res.x[i][j] = q;
+            }
+        }
+        return res;
+    }
+};
+
+matrix poww(matrix a, int k){
+	matrix b;
+	if ( k == 1 ){
+		return a;
+	}
+	if ( k % 2 == 1 ){
+		return a * poww(a*a,k/2);
+	}
+	b = poww(a,k/2);
+	return b*b;
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while (t--){
+    	int n;
+    	cin >> n;
+    	if(n==0){
+    		cout << "0" << endl;
+    	}
+    	else if(n==1){
+    		cout << "1" << endl;
+		}else{
+			matrix a;
+        	a.initi();
+			a = poww(a,n-1);
+			cout << a.x[1][1] << endl;
+		}
+    }
+    return 0;
+}
+
