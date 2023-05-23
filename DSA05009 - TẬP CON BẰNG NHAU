@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n, arr[105];
+int sum, kt = 0;;
+void input(){
+	cin >> n;
+	for ( int i = 0; i < n; i++){
+		cin >> arr[i];
+		sum += arr[i];
+	}
+}
+void backtrack(int i, int s){
+	if (s == 0){
+		kt = 1;
+		return;
+	}
+	for ( int j = i+1; j < n; j++){
+		if ( arr[j] <= s ){
+			backtrack(j,s-arr[j]);
+			if ( kt == 1 ) return;
+		}
+	}
+}
+main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		sum = 0;
+		input();
+		if ( sum % 2 == 1 ) cout << "NO" << endl;
+		else{
+			sum /= 2;
+			for ( int i = 0; i < n; i++){
+				if ( arr[i] <= sum ){
+					backtrack(i,sum-arr[i]);
+					if (kt){
+						cout << "YES" << endl;
+						break;
+					}
+				}
+			} 
+		}
+	}
+}
+
+
