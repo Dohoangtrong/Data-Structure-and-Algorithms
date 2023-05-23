@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+int proces(int a[], int n, int S){
+	int F[S+1] = {}, i, j;
+	F[0] = 1;
+	for ( i = 1; i <= n; i++){
+		for ( j = S; j >= a[i]; j--){
+			if (F[j]==0&&F[j-a[i]]==1) F[j] = 1;
+		}
+	}
+	return F[S];
+}
+main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int N,S,a[1000];
+		cin >> N >> S;
+		for ( int i = 1; i <= N; i++) cin >> a[i];
+		if ( proces(a,N,S) == 1 ) cout << "YES" << endl;
+		else cout << "NO" << endl;
+	}
+}
+
+
