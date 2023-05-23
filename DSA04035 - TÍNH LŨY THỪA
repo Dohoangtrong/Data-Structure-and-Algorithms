@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long MOD = 1e9+7;
+
+long long poww(long long a, long long k){
+	long long b;
+	if ( k == 1 ){
+		return a;
+	}
+	b = poww(a,k/2);
+	if ( k % 2 == 1 ){
+		return ( a * ( b * b % MOD ) ) % MOD;
+	}
+	return b * b % MOD;
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    long long a, b;
+    cin >> a >> b;
+    while ( a != 0 || b != 0 ){
+    	if ( a == 0 ) cout << 0 << endl;
+    	else if ( b == 0 ) cout << 1 << endl;
+    	else{
+			cout << poww(a,b) << endl;
+		}
+		cin >> a >> b;
+	}
+    return 0;
+}
+
