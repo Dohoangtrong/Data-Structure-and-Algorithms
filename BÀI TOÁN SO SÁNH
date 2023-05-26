@@ -1,0 +1,76 @@
+Cho một dãy các phép so sánh chiều cao giữa các sinh viên, mỗi sinh viên được đại diện bởi tên sinh viên (dãy ký tự không có khoảng trống và không có 2 sinh viên nào trùng tên).
+
+Hãy chỉ ra liệu có thể tất cả các phép so sánh đó đều đúng hay không?
+
+Input
+
+Dòng đầu ghi số N là số phép so sánh. (1 ≤ N ≤ 105).
+Mỗi phép so sánh gồm 2 xâu ký tự đại diện cho 2 cái tên sinh viên, và một dấu lớn hơn hoặc nhỏ hơn, hai xâu ký tự đều không quá 20 chữ cái, không có khoảng trống.
+Output
+
+Ghi ra “possible” nếu tất cả phép so sánh đều có thể đúng hoặc “impossible” nếu ngược lại.
+
+3
+An > Binh
+Binh > Cong
+An < Cong
+
+impossible
+
+3
+An > Binh
+Binh > Cong
+An > Cong
+
+possible
+
+---------code---------
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> adj[107];
+int id = 0;
+unordered_map<string,int> um;
+int color[1005] = {};
+int convert(string a){
+	if ( um[a] == 0 ){
+		id++;
+		um[a] = id;
+	}
+	return um[a];
+}
+
+bool DFS_cycle(int u){
+	color[u] = 1;
+	for ( auto x : adj[u] ){
+		if ( color[x] == 0 ){
+			if ( DFS_cycle(x) ) return true;		
+		}else if ( color[x] == 1 ) return true;
+	}
+	color[u] = 2;
+	return false;
+}
+
+int main() {
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int n, x, y, ok = 1;
+    cin >> n;
+    string a, b, c;
+    for ( int i = 0; i < n; i++){
+    	cin >> a >> b >> c;
+    	x = convert(a); y = convert(c);
+    	if ( b == ">" ) adj[x].push_back(y);
+    	else adj[y].push_back(x);
+	}
+	for ( int i = 1; i < id+1; i++){
+		if ( !color[i] ){
+			if (DFS_cycle(i)){
+				ok = 0;
+				cout << "impossible" << endl;
+				break;
+			}
+		}
+	}
+	if (ok) cout << "possible" << endl;
+}
