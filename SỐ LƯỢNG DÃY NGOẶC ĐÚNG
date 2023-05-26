@@ -1,0 +1,123 @@
+Biểu thức ngoặc là xâu chỉ gồm các ký tự ‘(’ hoặc ‘)’. Biểu thức ngoặc đúng và bậc của biểu thức ngoặc được định nghĩa một cách đệ qui như sau:
+Biểu thức rỗng là biểu thức ngoặc đúng và có bậc bằng 0,
+Nếu A là biểu thức ngoặc đúng có bậc bằng k thì (A) cũng là một biểu thức ngoặc đúng có bậc bằng k+1,
+Nếu A và B là hai biểu thức ngoặc đúng và có bậc tương ứng là k_1 và k_2 thì AB cũng là một biểu thức ngoặc đúng có bậc bằng max(k_1,k_2).
+Ví dụ, ‘()(())’ là một biểu thức ngoặc đúng có bậc bằng 2 còn ‘(()(()))’ là một biểu thức ngoặc đúng và có bậc bằng 3.
+Cho số nguyên K và xâu S là một xâu chỉ gồm các ký tự ‘(‘, ‘)’ và ‘?’, hãy đếm số cách cách thay các ký tự ‘?’ trong xâu S thành ký tự ‘(‘ hoặc ‘)’ để nhận được xâu T là biểu thức ngoặc đúng có bậc bằng K.
+
+Input
+Dòng đầu chứa số nguyên dương K.
+Dòng thứ hai chứa xâu S chỉ gồm các ký tự ‘(‘, ‘)’ và ‘?’.
+Giới hạn:
+Độ dài xâu S không vượt quá 200.
+
+Output
+Ghi ra đáp án trên một dòng.
+
+-----
+Input:
+2
+????(?
+Output:
+-----
+1
+Input:
+1
+((???(
+Output:
+0
+-----
+Input:
+2
+((???()???(?
+Output:
+4
+
+
+
+-------code-----
+#include<bits/stdc++.h>
+using namespace std;
+int n, leng, k, res = 0;
+string s;
+// ((())()) -> 3
+bool check(string a){
+	stack<int> st;
+	int p, q, tmp, closeB = 0, openB = 0;
+	int cnt = 0;
+	for ( int i = 0; i < leng; i++){
+		if ( a[i] == '(' ){
+			openB++;
+			st.push(0);
+			continue;
+		}else{
+			closeB++;
+			if (!st.empty() && closeB <= openB){
+				p = st.top();
+				st.pop();
+				if ( p == 0 ){
+					st.push(1);
+				}else{
+					if ( !st.empty() ){
+						if ( st.top() != 0 ){
+							while( !st.empty() && st.top() != 0){
+								tmp = p;
+								p = st.top();
+								st.pop();
+								tmp = max(p,tmp);
+							}
+							st.pop();
+							st.push(tmp+1);	
+						}else{
+							st.pop();
+							st.push(p+1);
+						}
+					}else{
+						return false;
+					}
+				}
+			}else{
+				return false;
+			}
+		}
+		cnt = st.top();
+		if (cnt > n) return false;
+	}
+	while(!st.empty()){
+		p = st.top();
+		st.pop();
+		if ( p == 0 ) return false;
+		else{
+			cnt = max(p,cnt);
+		}
+	}
+	if ( cnt != n ) return false;
+	return true;
+}
+
+void Try(int cnt, string a){
+	if ( cnt == k ){
+		if ( check(a) ){
+			res++;
+		}
+		return;
+	}
+	int i = 0;
+	while(a[i]!='?'&&i<leng){
+		i++;
+	}
+	a[i] = '('; Try(cnt+1,a);
+	a[i] = ')'; Try(cnt+1,a);	
+}
+
+int main() {
+	cin >> n;
+	cin >> s;
+	leng = s.length();
+	k = 0;
+	for ( int i = 0; i < leng; i++){
+		if (s[i] == '?') k++;
+	}
+	Try(0,s);
+	cout << res << endl;
+}
