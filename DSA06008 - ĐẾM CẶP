@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int n, m, res = 0;
+    	cin >> n >> m;
+    	int a[n], b[m];
+    	unordered_map<int,int> mp;
+    	int k[1001] = {};
+    	for ( int i = 0; i < n; i++){
+    		cin >> a[i];
+    		mp[a[i]]++;
+		}
+
+		for ( int i = 0; i < m; i++){
+			cin >> b[i];
+			k[b[i]]++;
+		}
+		int c[3] = {k[0],k[1],k[3]};
+		n = 0;
+		for ( int i = 0; i <= 1001; i++){
+			n += k[i];
+			k[i] = m - n;
+		}
+		for ( int i = 0; i < 1001; i++){
+			if (mp[i]){
+				if ( i == 0 ) continue;
+				else if ( i == 1 ) res += c[0] * mp[i];
+				else if ( i == 2 ) res += (c[0]+c[1]+k[4]) * mp[i];
+				else if ( i == 3 ) res += (m-c[2]) * mp[i];
+				else res += (c[0]+c[1]+k[i]) * mp[i];
+			}
+		}
+		cout << res << endl;
+	}
+}
