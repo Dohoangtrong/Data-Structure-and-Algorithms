@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int n;
+    	cin >> n;
+    	int ar[n+1];
+    	unordered_map<int,int> mp;
+    	for ( int i = 0; i < n; i++){
+    		cin >> ar[i];
+    		mp[ar[i]]++;
+		}
+		int kt = 0;
+		for ( int i = 0; i < n; i++){
+			if ( mp[ar[i]] >= 2 ){
+				kt = 1;
+				cout << ar[i] << endl;
+				break;
+			}
+		}
+		if ( kt == 0 ){
+			cout << "NO" << endl;
+		}
+	}
+}
+
