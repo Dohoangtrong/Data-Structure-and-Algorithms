@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int a, b, c;
+    	cin >> a >> b >> c;
+    	vector<int> vec;
+    	long long ar[a], br[b], cr[c];
+    	for ( int i = 0; i < a; i++) cin >> ar[i];
+    	for ( int i = 0; i < b; i++) cin >> br[i];
+    	for ( int i = 0; i < c; i++) cin >> cr[i];
+    	int j = 0, k = 0, l = 0;
+		while( j < a && k < b && l < c ){
+			if ( ar[j] == br[k] && br[k] == cr[l] ){
+				vec.push_back(ar[j]);
+				j++; k++; l++;
+			}else{
+				if ( ar[j] <= br[k] && ar[j] <= cr[l] ){
+					j++;
+				}else if ( br[k] <= ar[j] && br[k] <= cr[l] ){
+					k++;
+				}else{
+					l++;
+				}
+			}
+		}
+		if ( vec.empty()){
+			cout << "-1" << endl;
+		}else{
+			for ( int i = 0; i < vec.size(); i++){
+				cout << vec[i] << " ";
+			}
+			cout << endl;
+		}
+	}
+}
+
