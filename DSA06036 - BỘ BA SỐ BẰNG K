@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int n, k, kt = 0;
+    	cin >> n >> k;
+    	int ar[n+1];
+    	for ( int i = 0; i < n; i++){
+    		cin >> ar[i];
+		}
+		sort(ar,ar+n);
+		for ( int i = 0; i < n-2; i++){
+			for ( int j = i+1; j < n-1; j++){
+				if (binary_search(ar+j+1,ar+n,k-ar[i]-ar[j])){
+					kt = 1;
+					cout << "YES" << endl;
+					break;
+				}
+			}
+			if ( kt == 1 ) break;
+		}
+		if ( kt == 0 ) cout << "NO" << endl;
+	}
+}
