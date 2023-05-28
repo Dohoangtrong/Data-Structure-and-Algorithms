@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int n, k;
+    	long long s = 0;
+    	cin >> n >> k;
+    	long long ar[n+1];
+    	for ( int i = 0; i < n; i++){
+    		cin >> ar[i];
+		}
+		int b;
+		sort(ar,ar+n);
+		for ( int i = 0; i < n-2; i++){
+			for ( int j = i+1; j < n-1; j++){
+				b = lower_bound(ar+j+1,ar+n,k-ar[i]-ar[j] ) - ar;
+				s += b - j - 1;
+			}
+		}
+		cout << s << endl;
+	}
+}
+
