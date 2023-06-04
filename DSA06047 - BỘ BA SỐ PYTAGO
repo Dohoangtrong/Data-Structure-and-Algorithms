@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int n;
+    	cin >> n;
+    	long long arr[n], b;
+    	for ( int i = 0; i < n; i++){
+    		cin >> b;
+    		arr[i] = b*b;  
+		}
+		int kt = 1;
+		sort(arr,arr+n);
+		for ( int i = 0; i < n; i++){
+			for ( int j = i+1; j < n; j++){
+				long long a = arr[i] + arr[j];
+				if ( binary_search(arr,arr+n,a) ){
+					kt = 0;
+					cout << "YES" << endl;
+					break;
+				}
+			}
+			if ( kt == 0 ) break;
+		}
+		if ( kt == 1 ) cout << "NO" << endl;
+	}
+
+}
+
+
