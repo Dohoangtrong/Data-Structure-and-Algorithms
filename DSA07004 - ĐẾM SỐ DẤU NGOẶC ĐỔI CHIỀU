@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int t;
+    cin >> t;
+    cin.ignore();
+    while(t--){
+    	string s;
+    	cin >> s;
+    	stack<char> st;
+    	int i = 0, l = s.length(), cnt = 0;
+    	while(i<l){
+    		if ( st.empty() ){
+    			if ( s[i] == '(' ) st.push(s[i]);
+    			else{
+    				cnt++;
+    				st.push('(');
+				}
+				i++;
+				continue;
+			}
+			if ( s[i] == '(' ) st.push(s[i]);
+			else st.pop();
+			i++;
+		}
+		cnt += st.size() / 2;
+		cout << cnt << endl;
+	}
+
+}
+
+
