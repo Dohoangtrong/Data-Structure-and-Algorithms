@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while (t--){
+       	queue< tuple<int,int,int> > Q;
+		int n, m;
+       	cin >> n >> m;
+       	int arr[n][m];
+       	for ( int i = 0; i < n; i++){
+       		for ( int j = 0; j < m; j++ ) cin >> arr[i][j];
+		}
+		int check[n][m] = {};
+       	Q.push(make_tuple(0,0,0));
+       	int kt = 0;
+       	while(!Q.empty()){
+       		tuple<int,int,int> a;
+       		a = Q.front();
+       		Q.pop();
+       		int f = get<0>(a), s = get<1>(a), t = get<2>(a);
+       		if ( f == n-1 && s == m-1 ){
+       			cout << t << endl;
+       			kt = 1;
+				break;	
+			}else if ( f < n && s < m ){
+				if ( check[f][s] == 0 ){
+					Q.push(make_tuple(f+arr[f][s],s,t+1));
+					Q.push(make_tuple(f,s+arr[f][s],t+1));
+					check[f][s] = 1;
+				}
+			}
+		}
+		if (!kt) cout << -1 << endl;
+		
+    }
+}
+
