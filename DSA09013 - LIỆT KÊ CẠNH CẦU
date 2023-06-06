@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> ed[3000];
+int visited[1005] = {}, tplt = 0;
+vector<string> res;
+void DFS(int u, int a, int b){
+	visited[u] = true;
+	for ( auto x : ed[u] ){
+		if ( (x == a && b == u) || (x == b && a == u) )
+			continue;
+		if ( !visited[x] ){
+			DFS(x,a,b);
+		}
+	}
+}
+
+int proces(int a, int b, int v){
+	int cnt = 0;
+	for ( int i = 1; i <= v; i++ ){
+		if ( !visited[i] ){
+			cnt++;
+			DFS(i,a,b);
+		}
+	}
+	memset(visited,false,sizeof(visited));
+	return cnt;
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int v, e, a, b;
+		cin >> v >> e;
+		for ( int i = 0; i < e; i++){
+			cin >> a >> b;
+			ed[a].push_back(b);
+			ed[b].push_back(a);
+		}
+		tplt = proces(0,0,v);
+		for ( int i = 1; i <= v; i++){
+			for ( auto x : ed[i] ){
+				if ( i < x ){
+					int l = proces(i,x,v);
+					if ( l != tplt ){
+						string tmp = to_string(i)+" "+to_string(x);
+						res.push_back(tmp);
+					}
+				}
+			}
+		}
+		int l = res.size();
+		for ( int i = 0; i < l; i++){
+			cout << res[i] << " ";
+		}
+		cout << endl;
+		memset(visited,false,sizeof(visited));
+		for ( int i = 1; i <= v; i++){
+			ed[i].clear();
+		}
+		res.clear();
+	}
+} 
+
