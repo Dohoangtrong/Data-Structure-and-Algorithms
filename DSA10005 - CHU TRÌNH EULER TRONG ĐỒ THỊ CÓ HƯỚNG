@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int V, E;
+    	cin >> V >> E;
+    	int a ,b;
+    	vector<int> ideg[2000];
+    	vector<int> ddeg[2000];
+    	for(int i = 1; i <= E; i++){
+    		cin >> a >> b;
+    		ideg[a].push_back(b);
+    		ddeg[b].push_back(a);
+		}
+		int cnt = 0;
+		for ( int i = 1; i <= V; i++){
+			if ( ideg[i].size() == ddeg[i].size() ){
+				cnt++;
+			}
+		}
+		if ( cnt == V ) cout << 1 << endl;
+		else cout << 0 << endl;
+	}
+}
