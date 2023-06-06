@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int V, E;
+    	cin >> V >> E;
+    	int a ,b;
+    	vector<int> vt[3000];
+    	for(int i = 1; i <= E; i++){
+    		cin >> a >> b;
+    		vt[a].push_back(b);
+    		vt[b].push_back(a);
+		}
+		int cnt = 0;
+		for ( int i = 1; i <= V; i++){
+			int s = vt[i].size();
+			if ( s % 2 == 0 ) cnt++;
+		}
+		if ( cnt == V ) cout << 2 << endl;
+		else if ( cnt == V - 2 ) cout << 1 << endl;
+		else cout << 0 << endl;
+	}
+}
