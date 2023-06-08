@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+int F[100000];
+void caculator(){
+	F[1] = 0, F[2] = 1, F[3] = 1;
+	for ( int i = 4; i < 100000; i++){
+		F[i] = F[i-1];
+		if ( i % 2 == 0 ) F[i] = min(F[i],F[i/2]);
+		if ( i % 3 == 0 ) F[i] = min(F[i],F[i/3]);
+		F[i]+=1;
+	}
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	caculator();
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		cout << F[n] << endl;
+	}
+} 
+
