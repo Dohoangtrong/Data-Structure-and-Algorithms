@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n, arr[30], c[30];
+void input(){
+	cin >> n;
+	for ( int i = 0; i < n; i++){
+		arr[i] = 0;
+	}
+}
+void proces(){
+	c[0] = arr[0];
+	for ( int i = 1; i < n; i++){
+		if ( arr[i] == 1 && arr[i-1] == 1 ) c[i] = 0;
+		else{
+			c[i] = arr[i] + arr[i-1];
+		}
+	}
+}
+void Gen(){
+	proces();
+	for ( int i = 0; i < n; i++) cout << c[i];
+	cout << " ";
+	int a = n-1;
+	while( arr[a] == 1 ){
+		arr[a] = 0;
+		a--;
+	}
+	arr[a] = 1;
+	if (a > -1) Gen();
+}
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	input();
+    	Gen();
+    	cout << endl;
+	}
+}
+
