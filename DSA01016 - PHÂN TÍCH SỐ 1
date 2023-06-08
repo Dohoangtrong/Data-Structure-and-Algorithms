@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void bt(int n, string a, int k){
+	if ( n == 0 ){
+		a.pop_back();
+		cout << a << ") ";
+		return;
+	}
+	if ( n == 1 ){
+		cout << a << 1 << ") ";
+		return;
+	}
+	string tmp = "";
+	for ( int i = n; i > 0; i--){
+		if ( i <= k ){
+			tmp = to_string(i) + " ";
+			bt(n-i,a+tmp,i);	
+		}
+	}
+}
+
+int main() {
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int n;
+    	cin >> n;
+    	bt(n,"(",n);
+    	cout << endl;
+	}
+}
+
