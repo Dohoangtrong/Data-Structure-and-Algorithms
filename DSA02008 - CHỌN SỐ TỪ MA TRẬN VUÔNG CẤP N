@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr[20][20], n, k;
+int check[20];
+int cnt = 0;
+vector<int> v;
+vector<string> str;
+void input(){
+	cin >> n >> k;
+	for ( int i = 1; i <= n; i++){
+    	for ( int j = 1; j <= n; j++){
+    		cin >> arr[i][j];
+		}
+	}
+}
+
+void Gen(int a, int s){
+	if ( a == n ){
+			if ( s == k ){
+				string cmp = "";
+				for ( int i = 0; i < v.size(); i++){
+					cmp+=char(48+v[i]);
+					cmp+=' ';
+				}
+				str.push_back(cmp);
+				cnt++;
+			}
+		return;
+	}
+	for ( int i = 1; i <= n; i++){
+		if ( check[i] == 0 ){
+			check[i] = 1;
+			v.push_back(i);
+			Gen(a+1,s+arr[a+1][i]);
+			check[i] = 0;
+			v.pop_back();
+		}
+	}
+}
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+	input();
+	for ( int i = 1; i <= n; i++){
+		v.clear();
+		v.push_back(i);
+		for ( int i = 1; i <= n; i++){
+			check[i] = 0;
+		}
+		check[i] = 1;
+		Gen(1,arr[1][i]);
+	}
+	cout << cnt << endl;
+	for ( int i = 0; i < str.size(); i++){
+		cout << str[i] << endl;
+	}
+}
+
