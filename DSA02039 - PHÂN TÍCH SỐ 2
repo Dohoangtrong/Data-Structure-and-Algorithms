@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+int cnt;
+vector<string> vec;
+void bt(int n, string a, int k){
+    string b = "";
+	if ( n == 0 ){
+		a.pop_back();
+		cnt++;
+		b = a + ")";
+		vec.push_back(b);
+		return;
+	}
+	if ( n == 1 ){
+	    cnt++;
+	    b = a + "1)";
+	    vec.push_back(b);
+		return;
+	}
+	string tmp = "";
+	for ( int i = n; i > 0; i--){
+		if ( i <= k ){
+			tmp = to_string(i) + " ";
+			bt(n-i,a+tmp,i);	
+		}
+	}
+}
+
+int main() {
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+        cnt = 0;
+    	int n;
+    	cin >> n;
+    	bt(n,"(",n);
+    	cout << endl;
+    	cout << cnt << endl;
+    	for ( int i = 0; i < vec.size(); i++){
+    	    cout << vec[i] << " ";
+    	}
+    	vec.clear();
+	}
+}
