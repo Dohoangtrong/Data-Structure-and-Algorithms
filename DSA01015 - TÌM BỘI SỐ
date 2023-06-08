@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int n;
+    	cin >> n;
+    	long long a = 9;
+    	queue<long long> Q;
+    	Q.push(a);
+    	while(1){
+    		a = Q.front();
+    		Q.pop();
+    		if ( a % n == 0 ){
+    			cout << a << endl;
+    			break;
+			}
+			Q.push(a*10);
+			Q.push(a*10+9);
+		}
+	}
+}
+
