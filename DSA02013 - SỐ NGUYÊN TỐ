@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+int snt[47] = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199};
+vector<int> v;
+int check[47] = {};
+vector<string> res;
+int n, p, s, l;
+void Try(int i, string a, int sum, int k){
+	if ( i == n && s == sum ){
+		res.push_back(a);
+		return;
+	}
+	if ( i < n )
+		for ( int c = 0; c < l; c++){
+			if ( check[c] == 0 && k < v[c]){
+				check[c] = 1; 
+				string b = to_string(v[c]) + " ";
+				Try(i+1,a+b,sum+v[c],v[c]);
+				check[c] = 0;
+			}
+		}
+}
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		cin >> n >> p >> s;
+		for ( int i = 0; i < 47; i++){
+			if ( snt[i] > p && snt[i] < s ) v.push_back(snt[i]); 
+		}
+		l = v.size();
+		Try(0,"",0,0);
+		sort(res.begin(),res.end());
+		cout << res.size() << endl;
+		for ( int i = 0; i < res.size(); i++){
+			cout << res[i] << endl;
+		}
+		v.clear();
+		res.clear();
+	}
+	
+} 
+
+
