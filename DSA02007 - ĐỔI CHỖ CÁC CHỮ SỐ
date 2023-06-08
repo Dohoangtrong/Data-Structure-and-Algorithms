@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int n, i, j;
+    	string s;
+    	cin >> n >> s;
+    	int l = s.length();
+    	for ( i = 0; i < l-1; i++){
+    		if ( n == 0 ) break;
+    		j = i;
+    		for ( int k = i+1; k < l; k++){
+    			if ( s[k] >= s[j] ) j = k;
+			}
+			if (j != i&&s[j]>s[i]){
+				n--;
+			}
+			swap(s[i],s[j]);
+		}
+		cout << s << endl;
+	}
+}
