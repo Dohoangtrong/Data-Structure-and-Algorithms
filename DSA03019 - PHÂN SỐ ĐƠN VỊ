@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+    int t;
+    cin >> t;
+    while (t--){
+        long long p, q, n, m, x;
+        cin >> p >> q;
+        while (q % p != 0)
+        {
+            n = p;
+            m = q;
+            x = q / p;
+            cout << 1 << "/" << x + 1 << " + ";
+            p = (x + 1) * n - m;
+            q = (x + 1) * q;
+        }
+        cout << 1 << "/" << q / p;
+        cout << '\n';
+    }
+}
