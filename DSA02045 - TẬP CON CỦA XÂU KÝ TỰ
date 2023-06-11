@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n; 
+string s;
+void Try( int i, string a ){
+	if ( a != "") cout << a << " ";
+	for ( int j = i; j < n; j++){
+		Try(j+1,a+s[j]);
+	}
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		cin >> n >> s;
+		Try(0,"");
+		cout << endl;
+	}
+} 
+
