@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		long long value = 0;
+		cin >> n;
+		long long arr[n+1];
+		long long mol = 1e9+7;
+		for ( int i = 0; i < n; i++) cin >> arr[i];
+		priority_queue<long long, vector<long long>, greater<long long>> Q;
+		for ( int i = 0; i < n; i++) Q.push(arr[i]%mol);
+		while(Q.size()>1){
+			int a = Q.top();
+			Q.pop();
+			int b = Q.top();
+			Q.pop();
+			long long k = a+b;
+			k %= mol;
+			value = value + k;
+			value %= mol;
+			Q.push(k);
+		}
+		cout << value << endl;
+	}
+}
+
