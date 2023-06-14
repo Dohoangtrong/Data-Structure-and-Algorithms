@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int k, x; cin >> n >> k;
+		int a[n];
+		for ( int i = 0; i < n; i++) cin >> a[i];
+		sort(a,a+n);
+		long long cnt = 0;
+		for ( int i = 0; i < n; i++){
+			auto x = lower_bound(a+i,a+n,a[i]+k)-i;
+			cnt += x - a - 1;
+
+		}
+		cout << cnt << endl;
+	}
+}
+
+
+
+
