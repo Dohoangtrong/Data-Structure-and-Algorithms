@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		int arr[1005];
+		int F[1005];
+		int mx = 0;
+		for ( int i = 1; i <= n; i++) cin >> arr[i];
+		F[0] = 0;
+		for ( int i = 1; i <= n; i++){
+			F[i] = arr[i];
+			for ( int j = 1; j < i; j++)
+				if ( arr[i] > arr[j] ) F[i] = max(F[i],F[j]+arr[i]);
+			if ( F[i] > mx ) mx = F[i];
+		}
+		cout << mx << endl;
+		
+	}	
+}
+
+
+
+
