@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int k,c,d,flag = 0;
+    	string a, b;
+    	cin >> k >> a >> b;
+    	int l1 = a.length();
+    	int l2 = b.length();
+    	if ( l1 < l2 ){
+    		for ( int i = 0; i < l2-l1; i++) a = '0' + a;
+		}else{
+			for ( int i = 0; i < l1-l2; i++) b = '0' + b;
+		}
+		int l = a.length();
+		vector<int> v;
+		for ( int i = l-1; i >= 0; i--){
+			c = a[i] - '0';
+			d = b[i] - '0';
+			if (c+d+flag>=k){
+				v.push_back(c+d+flag-k);
+				flag = 1;
+			}else{
+				v.push_back(c+d+flag);
+				flag = 0;
+			}
+		}
+		if ( flag == 1 ) v.push_back(1);
+		for ( int i = v.size()-1; i >= 0; i--) cout << v[i];
+		cout << endl;
+	}
+}
