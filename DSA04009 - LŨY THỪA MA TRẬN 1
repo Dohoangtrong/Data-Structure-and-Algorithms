@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long mod = 1e9+7;
+int n;
+struct matrix{
+	long long F[10][10];
+	void input(){
+		for ( int i = 0; i < n; i++){
+			for ( int j = 0; j < n; j++) cin >> F[i][j];
+		}
+	}
+	void output(){
+		for ( int i = 0; i < n; i++){
+			for ( int j = 0; j < n; j++) cout << F[i][j] << " ";
+			cout << endl;
+		}
+	}
+};
+typedef struct matrix matrix;
+
+matrix operator * (matrix a, matrix b){
+	matrix tmp;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			tmp.F[i][j] = 0;
+			for (int k = 0; k < n; k++)
+				tmp.F[i][j] = (tmp.F[i][j] + (a.F[i][k] * b.F[k][j]) % mod) % mod;
+		}
+	}
+	return tmp;
+}
+
+matrix proc(int n, matrix a){
+	if ( n == 1 ) return a;
+	if ( n % 2 == 1 ) return a*proc(n/2,a*a);
+	matrix b = proc(n/2,a);
+	return b*b; 
+}
+
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int k;
+    	cin >> n >> k;
+    	matrix a;
+    	a.input();
+    	a = proc(k,a);
+    	a.output();
+	}
+}
