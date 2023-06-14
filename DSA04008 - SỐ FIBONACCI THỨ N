@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long mod = 1e9+7;
+struct fibo{
+	long long F[2][2];
+	void init(){
+		F[0][0] = 0, F[0][1] = 1;
+		F[1][0] = 1, F[1][1] = 1;
+	}
+};
+typedef struct fibo fibo;
+
+fibo operator * (fibo a, fibo b){
+	fibo tmp;
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			tmp.F[i][j] = 0;
+			for (int k = 0; k < 2; k++)
+				tmp.F[i][j] = (tmp.F[i][j] + (a.F[i][k] * b.F[k][j]) % mod) % mod;
+		}
+	}
+	return tmp;
+}
+
+fibo proc(int n, fibo a){
+	if ( n == 1 ) return a;
+	if ( n % 2 == 1 ) return a*proc(n/2,a*a);
+	fibo b = proc(n/2,a);
+	return b*b; 
+}
+
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	int n;
+    	cin >> n;
+    	fibo a;
+    	a.init();
+    	a = proc(n-1,a);
+    	cout << a.F[1][1] << endl;
+	}
+}
