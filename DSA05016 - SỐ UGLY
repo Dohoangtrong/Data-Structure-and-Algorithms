@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+int F[1005];
+
+void inti(){
+	F[0] = 1;
+	int x=2, y=3, z=5, i2 = 0, i3 = 0, i5 = 0;
+	for ( int i = 1; i < 1005; i++){
+		F[i] = min(x,min(y,z));
+		if ( F[i] == x ) i2++, x = F[i2]*2;
+		if ( F[i] == y ) i3++, y = F[i3]*3;
+		if ( F[i] == z ) i5++, z = F[i5]*5;
+	}
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+//	cout.tie(0);
+	inti();
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		cout << F[n-1] << endl;
+	}
+} 
