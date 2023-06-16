@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n, K, M = 1e9+7;
+		cin >> n >> K;
+		int F[1005] = {};
+		int arr[n];
+		F[0] = 1;
+		for ( int i = 0; i < n; i++) cin >> arr[i];
+		for ( int i = 1; i <= K; i++){
+			for ( int j = 0; j < n; j++){
+				if ( arr[j] <= i ) F[i] = (F[i]+F[i-arr[j]])%M; 
+			}
+		}
+		cout << F[K] << endl;
+	}
+}
