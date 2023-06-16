@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int arr[1005][1005];
+int process(string a){
+	int l = a.length(), ans = 0;
+	memset(arr,false,sizeof(arr));
+	for ( int i = l-1; i >= 0; i--){
+		for ( int j = i; j < l; j++){
+			if ( i==j ) arr[i][j] = true;
+			else if ( a[i] == a[j] ){
+				if ( j-i == 1 ) arr[i][j] = true;
+				else arr[i][j] = arr[i+1][j-1];
+			}
+			if ( arr[i][j]) ans = max(ans,j-i+1);
+		}
+	}
+	return ans;
+}
+main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+	int t;
+	cin >> t;
+	cin.ignore();
+	while(t--){
+		string a;
+		cin >> a;
+		cout << process(a) << endl;
+	}
+}
+
+
