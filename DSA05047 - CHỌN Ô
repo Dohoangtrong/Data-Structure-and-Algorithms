@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t; cin >> t;
+	while (t--) {
+		int n; cin >> n;
+		int M[4][10000];
+		int res = INT_MIN;
+		for ( int i = 0; i < 4; i++){
+			for ( int j = 0; j < n; j++){
+				cin >> M[i][j];
+				res = max(res, M[i][j]);
+			}
+		}
+		if (res <= 0)cout << res << endl;
+		else {
+			for ( int i = 0; i < 4; i++){
+				for ( int j = 0; j < n; j++){
+					if (M[i][j] < 0) M[i][j] = 0;
+				}
+			}
+			int dp[10000][4][4];
+			memset(dp, INT_MIN, sizeof(dp));
+			vector<pair<int,int>> X;
+			set<int> Y;
+			for ( int i = 0; i < n; i++ ){
+				bool ok = false;
+				for ( int j = 0; j < 4; j++ )
+					if (M[j][i] > 0) ok = true;
+				if (!ok) Y.insert(i);
+			}
+			for ( int i = 0; i < n; i++ ){
+				X.clear();
+				for ( int j = 0; j < 4; j++ ){
+					dp[i][j][j] = M[j][i];
+					X.push_back(make_pair(j,j));
+					for (int l = j + 2; l < 4; l++) {
+						dp[i][j][l] = M[j][i] + M[l][i];
+						X.push_back(make_pair (j,l));
+					}
+				}
+			}
+			res = 0;
+			for ( int i = 1; i < n; i++ ){
+				int mayy = 0;
+				if (i > 1)for (auto y : X)mayy = max(mayy, dp[i - 2][y.first][y.second]);
+				for (auto x : X) {
+					int maxx = 0, mazz = INT_MIN;
+					for (auto y : X) {
+						if (x.first != y.first && x.first != y.second 
+						&& x.second != y.first && x.second != y.second) 
+							maxx = max(mayy, max(maxx, dp[i - 1][y.first][y.second]));
+						mazz = max(mazz, dp[i - 1][y.first][y.second]);
+					}
+					if (Y.count(i) != 0)dp[i][x.first][x.second] = dp[i][x.first][x.second] + mazz;
+					else dp[i][x.first][x.second] = dp[i][x.first][x.second] + maxx;
+				}
+			}
+			for ( int i = 0; i < n; i++ ) for (auto x : X)res=max(res,dp[i][x.first][x.second]);
+			cout << res << endl;
+		}
+	}
+	return 0;
+}
