@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long mod = 1e9 + 7;
+long long arr[105][10];
+long long res;
+int n;
+void proc(){
+	for (int i = 0; i < 10; i++) {
+        arr[1][i] = 1; res += arr[1][i];
+    }
+    for (int i = 2; i <= n; i++) {
+        arr[i][1] = 1; res += arr[i][1];
+    } 
+    for (int i = 2; i <= n; i++) {
+        for (int j = 9; j >= 2; j--) {
+            arr[i][j] = arr[i - 1][j];
+            for (int k = j - 1; k >= 1; k--) {
+                arr[i][j] += arr[i - 1][k];
+                arr[i][j] %= mod;
+            }
+            res += arr[i][j];
+            res %= mod; 
+        }
+    }
+}
+
+int main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+	int t;
+	cin >> t;
+	while (t--){
+		cin >> n;
+		res = 0;
+		proc();
+        cout << res << endl;
+	}
+}
