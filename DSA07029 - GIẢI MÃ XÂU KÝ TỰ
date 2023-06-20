@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+#include <stack>
+
+std::string decodeString(const std::string& str) {
+    std::stack<int> countStack;
+    std::stack<std::string> resultStack;
+    std::string currentString;
+    int repeatCount = 0;
+
+    for (char c : str) {
+        if (std::isdigit(c)) {
+            repeatCount = repeatCount * 10 + (c - '0');
+        } else if (c == '[') {
+            countStack.push(repeatCount);
+            resultStack.push(currentString);
+            currentString.clear();
+            repeatCount = 0;
+        } else if (c == ']') {
+            std::string temp = currentString;
+            for (int i = 1; i < countStack.top(); i++) {
+                currentString += temp;
+            }
+            countStack.pop();
+            currentString = resultStack.top() + currentString;
+            resultStack.pop();
+        } else {
+            currentString += c;
+        }
+    }
+
+    return currentString;
+}
+
+int main() {
+    int t; std::cin >> t;
+    while (t--)
+    {
+        std::string encodedString; std::cin >> encodedString;
+        std::string decodedString = decodeString(encodedString);
+
+        std::cout << decodedString << std::endl;
+    }
+
+    return 0;
+}
