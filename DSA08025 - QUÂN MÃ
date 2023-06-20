@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int stx,edx,sty,edy;
+bool visited[10][10];
+int value[10][10];
+int mx[8] = {-1,-2,-2,-1,1,2,2,1};
+int my[8] = {-2,-1,1,2,2,1,-1,-2};
+
+int BFS(int i, int j){
+	memset(visited,0,sizeof(visited));
+	queue<pair<int,int>> Q;
+	Q.push({i,j});
+	value[i][j] = 0;
+	visited[i][j] = true;
+	if ( i == edx && j == edy ) return value[i][j];
+	while(!Q.empty()){
+		pair<int,int> x = Q.front();
+		Q.pop();
+		for ( int k = 0; k < 8; k++){
+			int i1 = x.first + mx[k];
+			int j1 = x.second + my[k];
+			if ( i1 >=1 && i1<=8 &&j1>=1&&j1<=8&&!visited[i1][j1]){
+				value[i1][j1] = value[x.first][x.second]+1;
+				Q.push({i1,j1});
+				visited[i1][j1] = true;
+			}
+			if ( i1 == edx && j1 == edy ) return value[edx][edy];
+		} 
+	}
+}
+
+int main() {
+	int t;
+	cin >> t;
+	cin.ignore();
+	while(t--){
+		string a, b;
+		cin >> a >> b;
+		stx = a[0] - '`'; sty = a[1] - '0';
+		edx = b[0] - '`'; edy = b[1] - '0';
+		cout << BFS(stx,sty) << endl; 
+	}
+}
+
