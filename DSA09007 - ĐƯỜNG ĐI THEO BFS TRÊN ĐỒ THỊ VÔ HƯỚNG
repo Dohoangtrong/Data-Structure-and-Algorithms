@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+int v, e;
+int visited[1005];
+vector<int> adj[1005];
+int parent[1005];
+
+void BFS(int u){
+	visited[u] = 1;
+	queue<int> Q;
+	Q.push(u);
+	while(!Q.empty()){
+		u = Q.front();
+		Q.pop();
+		for ( auto x : adj[u] ){
+			if (!visited[x]){
+				parent[x] = u;
+				Q.push(x);
+				visited[x] = 1;
+			}
+		}
+	}
+}
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		memset(visited,0,sizeof(visited));
+		memset(parent,0,sizeof(parent));
+		for ( int i = 1; i <= v; i++ ) adj[i].clear();
+		int a, b, start, end;
+		cin >> v >> e >> start >> end;
+		for ( int i = 0; i < e; i++){
+			cin >> a >> b;
+			adj[a].push_back(b);
+			adj[b].push_back(a);
+		}
+		BFS(start);
+		if ( !parent[end] ) cout << -1 << endl;
+		else{
+			stack<int> st;
+			st.push(end);
+			a = parent[end];
+			while(1){
+				st.push(a);
+				a = parent[a];
+				if ( a == start ) break;
+			}
+			cout << start << " ";
+			while(!st.empty()){
+				cout << st.top() << " ";
+				st.pop();
+			}
+			cout << endl;
+		}
+	}
+}
