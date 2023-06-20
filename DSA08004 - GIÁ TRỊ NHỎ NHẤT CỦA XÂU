@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n, a;
+		long long value = 0;
+		map<char,int> m;
+		cin >> n;
+		string s;
+		cin >> s;
+		int l = s.length();
+		priority_queue<int> Q;
+		for ( int i = 0; i < l; i++){
+			m[s[i]]++;
+		}
+		for ( auto i : m ){
+			Q.push(i.second);
+		}
+		while(n--){
+			a = Q.top();
+			Q.pop();
+			Q.push(a-1);
+		}
+		while(!Q.empty()){
+			a = Q.top();
+			Q.pop();
+			value += (long long)a*a;
+		}
+		cout << value << endl;
+	}
+}
+
+
