@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+int v;
+int visited[1005];
+vector<int> adj[1005];
+
+bool DFS(int u, int parent){
+	visited[u] = 1;
+	for( auto x : adj[u] ){
+		if ( visited[x] == 0 ){
+			if (DFS(x,u)) return true;
+		}
+		else if ( x != parent ) return true;
+	}
+	return false;
+}
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		memset(visited,0,sizeof(visited));
+		for ( int i = 1; i <= v; i++ ) adj[i].clear();
+		int a, b, check = 0;
+		cin >> v;
+		for ( int i = 0; i < v-1; i++){
+			cin >> a >> b;
+			adj[a].push_back(b);
+			adj[b].push_back(a);
+		}
+		for ( int i = 1; i <= v; i++ ){
+			if ( !visited[i] ){
+				if ( DFS(i,0) ){
+					check = 1;
+					cout << "NO" << endl;
+					break;
+				}
+			}
+		}
+		if ( !check ) cout << "YES" << endl;
+	}
+}
