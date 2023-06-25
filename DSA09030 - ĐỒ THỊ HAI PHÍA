@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> adj[1005];
+int color[1005];
+bool dfs(int u , int par){
+    color[u] = 1 - color[par];
+    for(auto x : adj[u]){
+        if(color[x] == -1){
+            if ( !dfs(x,u) ) return false;
+        }
+        else if(color[x] == color[u]) return false;
+    }
+    return true;
+}
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		memset(color,-1,sizeof(color));
+		int v, e, a, b; 
+		cin >> v >> e;
+		for ( int i = 0; i < e; i++ ){
+			cin >> a >> b;
+        	adj[a].push_back(b);
+        	adj[b].push_back(a);
+		}
+    	bool ok = 1;
+    	color[0] = 1;
+    	for(int i = 1 ; i <= v ; i++){
+			if ( color[i] == -1 ){
+				if (!dfs(i,0)){
+					ok = 0; 
+					break;
+				}
+			}
+    	}
+    	for ( int i = 1; i <= v; i++ ){
+    		adj[i].clear();
+		}
+    	if(ok)cout<<"YES"<<endl;
+    	else cout<<"NO"<<endl;
+	}
+}
+
+
+
+
+
+
