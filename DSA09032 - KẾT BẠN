@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+int parent[100005];
+
+int find(int a){
+	if ( parent[a] == a ) return a;
+	int b = find( parent[a] );
+	parent[a] = b;
+	return b;
+}
+
+void union_set(int a, int b){
+	a = find(a);
+	b = find(b);
+	if ( a!=b ) parent[b] = a;
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int cnt[100005] = {};
+		int v, e, a, b, mx = 0;
+		cin >> v >> e;
+		for ( int i = 1; i <= v; i++){
+			parent[i] = i;
+		}
+		for ( int i = 0; i < e; i++){
+			cin >> a >> b;
+			if ( a < b ) union_set(a,b);
+			else union_set(b,a);
+		}
+		for ( int i = 1; i <= v; i++){
+			find(i);
+		}
+		for ( int i = 1; i <= v; i++){
+			cnt[parent[i]]++;
+			mx = max(mx,cnt[parent[i]]);
+		}
+		cout << mx << endl;
+	}
+} 
+
+
+
