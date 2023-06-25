@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string calcu(string a, string b, string c){
+	int n = atoi(a.c_str());
+	int m = atoi(b.c_str());
+	if ( c == "+" ) return to_string(n+m);
+	if ( c == "-" ) return to_string(n-m);
+	if ( c == "*" ) return to_string(n*m);
+	if ( c == "/" ) return to_string(n/m);
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		string s;
+		vector<string> v;
+		for ( int i = 0; i < n; i++){
+			cin >> s;
+			v.push_back(s);
+		}
+		queue<string> Q;
+		for ( int i = n-1; i >= 0; i--){
+			if ( v[i] == "+" || v[i] == "-" || v[i] == "*" || v[i] == "/"){
+				string a = Q.front(); 
+				Q.pop();
+				string b = Q.front(); 
+				Q.pop();
+				a = calcu(b,a,v[i]);
+				Q.push(a);
+			}else{
+				Q.push(v[i]);
+			}
+		}
+		cout << Q.front() << endl;
+	}
+} 
+
