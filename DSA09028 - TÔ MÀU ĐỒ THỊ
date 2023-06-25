@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+using namespace std;
+int visited[1005];
+vector<int> adj[5005];
+int d[1005];
+vector<pair<int,int>> deg;
+int color;
+bool cmp(pair<int,int> a, pair<int,int> b){
+	if ( a.second > b.second ){
+		return true;
+	}else if ( a.second == b.second ) return a.first < b.first;
+	return false;
+}
+
+void dfs(int u){
+	visited[u] = 2;
+	for ( auto x : adj[u] ){
+		if ( visited[x] == 0 ) visited[x] = 1;
+	}
+}
+
+void process(int v){
+	for ( int i = 0; i < v; i++){
+		int a = deg[i].first;
+//		cout << a << " " << deg[i].second << endl;
+		if ( visited[a] == 0 ){
+//			cout << a << endl;
+			dfs(a);
+			
+		}
+	}
+	color++;
+	for ( int i = 1; i <= v; i++){
+//		cout << visited[i] << " ";
+		if ( visited[i] != 2 ) visited[i] = 0;
+	}
+}
+
+bool check(int v){
+	for ( int i = 1; i <= v; i++){
+		if ( visited[i] != 2 ) return false;
+	}
+	return true;
+}
+
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		color = 0;
+		memset(d,0,sizeof(deg));
+		memset(visited,0,sizeof(visited));
+		int v, e, a, b, k;
+		cin >> v >> e >> k;
+		for ( int i = 0; i < e; i++){
+			cin >> a >> b;
+			adj[a].push_back(b);
+			adj[b].push_back(a);
+			d[a]++; d[b]++;
+		}
+		for ( int i = 1; i <= v; i++){
+			deg.push_back({i,d[i]});
+		}
+		sort(deg.begin(),deg.end(),cmp);
+		while(!check(v)){
+			process(v);
+		}
+		deg.clear();
+		for ( int i = 1; i <= v; i++){
+			adj[i].clear();
+		}
+		if ( color <= k ) cout << "YES" << endl;
+		else cout << "NO" << endl;
+	}
+}
+
+
+
+
