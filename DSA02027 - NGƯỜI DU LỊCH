@@ -1,0 +1,44 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+const int INF = 987654321; 
+int n; 
+int dist[16][16]; 
+int dp[16][1 << 16]; 
+
+int tsp(int current, int visited) {
+  if (visited == (1 << n) - 1) { 
+    return dist[current][0]; 
+  }
+  if (dp[current][visited] != -1) {
+    return dp[current][visited];
+  }
+  int ans = INF;
+  for (int i = 0; i < n; i++) {
+    if ((visited & (1 << i)) == 0) {
+      ans = min(ans, dist[current][i] + tsp(i, visited | (1 << i)));
+    }
+  }
+  return dp[current][visited] = ans;
+}
+
+int main() {
+  
+  cin >> n;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      cin >> dist[i][j];
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < (1 << n); j++) {
+      dp[i][j] = -1;
+    }
+  }
+  int ans = tsp(0, 1);
+  cout << ans << endl;
+  return 0;
+}
+
