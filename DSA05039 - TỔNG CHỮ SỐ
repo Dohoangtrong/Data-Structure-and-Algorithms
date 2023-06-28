@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+string F[105][805]; 
+const string infi = "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+
+string compareS(string a, string b){
+	int s1 = a.length(), s2 = b.length();
+	if ( s1 < s2 ) return a;
+	if ( s1 == s2 ){
+		if ( a < b ) return a;
+	}
+	return b;
+}
+
+void proces(){
+	for (int i = 0; i <= 100; i++) {
+        for (int j = 0; j <= 800; j++) {
+        	F[i][j] = infi;
+        }
+    }
+	F[0][0] = "";
+	for ( int i = 1; i <= 100; i++){
+		for ( int j = 1; j <= 800; j++){
+			for ( int d = 1; d <= 9; d++){
+				if (i >= d && j >= d*d) {
+                	F[i][j] = compareS(F[i][j],F[i-d][j-d*d] + to_string(d));
+                }
+			}	
+		}
+	}
+}
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	proces();
+	while(t--){
+		int n, m;
+		cin >> n >> m;
+		if ( m >= 1005 ) cout << -1 << endl;
+		else{
+			if ( F[n][m] == infi ){
+				cout << -1 << endl;
+			}else cout << F[n][m] << endl;
+		}
+	}
+} 
+
