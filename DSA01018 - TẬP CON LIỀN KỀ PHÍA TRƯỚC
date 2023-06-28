@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr[1000], n, k;
+void input(){
+	cin >> n >> k;
+	for ( int i = 1; i <= k; i++) cin >> arr[i];
+	arr[0] = 0;
+}
+void ReGen(){
+	int check = 1;
+	for ( int i = k; i >= 1; i--){
+		if ( arr[i] != arr[i-1] + 1 ){
+			arr[i]--;
+			check = 0;
+			if ( arr[k] != n ){
+				for ( int j = i+1; j <= k; j++){
+					arr[j]++;
+				}
+			}
+			break;
+		}
+	}
+	if (check){
+		for ( int i = k; i >= 1; i--){
+			arr[i] = n+i-k;
+		}
+	}
+}
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		input();
+		ReGen();
+		for ( int i = 1; i <= k; i++) cout << arr[i] << " ";
+		cout << endl;
+	}
+}
+
