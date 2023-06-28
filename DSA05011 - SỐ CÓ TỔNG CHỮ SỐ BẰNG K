@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long F[105][50005] = {};
+long long mod = 1e9+7;
+
+void proces(){
+	for ( int i = 1; i <= 9; i++){
+		F[1][i] = 1;
+	}
+	for ( int i = 1; i <= 100; i++){
+		for ( int j = 0; j <= 9; j++){
+			for ( int k = j; k <= 5000; k++){
+				F[i][k] += F[i-1][k-j];
+				F[i][k] %= mod;
+			}
+		}
+	}
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	proces();
+	while(t--){
+		int n, m;
+		cin >> n >> m;
+		cout << F[n][m] << endl;
+	}
+} 
+
