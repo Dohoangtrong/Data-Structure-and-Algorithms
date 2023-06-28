@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool check(string a, string b){
+	int l1 = a.length(), l2 = b.length();
+	int i = 0, j = 0;
+	while(i<l1&&j<l2){
+		if ( a[i] == b[j] ){
+			i++; j++;
+		}else j++;
+	}
+	if ( i == l1 ) return true;
+	return false;
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		long long k;
+		string s, a;
+		cin >> s;
+		bool kt = 0;
+		for ( long long i = 100; i >= 0; i-- ){
+			k =  i * i * i;
+			a = to_string(k);
+			if ( check(a,s) ){
+				kt = 1;
+				cout << a << endl;
+				break;
+			}
+		}
+		if (!kt) cout << -1 << endl;
+
+	}
+}
+
