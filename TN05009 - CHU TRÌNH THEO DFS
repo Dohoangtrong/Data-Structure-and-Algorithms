@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> adj[1005];
+int parent[1005];
+int vis[1005];
+bool DFS(int u){
+	vis[u] = 1;
+	for ( auto x : adj[u] ){
+		if ( !vis[x] ){
+			parent[x] = u;
+			if ( DFS(x) ) return true;
+		}else if ( parent[u] != x && x == 1 ){
+			parent[1] = u;
+			return true;
+		}
+	}
+	return false;
+}
+
+int main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+	int t;
+	cin >> t;
+	while (t--){
+		int v, e, a, b;
+		cin >> v >> e;
+		for ( int i = 0; i < e; i++ ){
+			cin >> a >> b;
+			adj[a].push_back(b);
+			adj[b].push_back(a);
+		}
+		for ( int i = 1; i <= v; i++ ){
+			sort(adj[i].begin(),adj[i].end());
+		}
+		if ( DFS(1) ){
+			stack<int> st;
+			st.push(parent[1]);
+			while(parent[st.top()]!=1){
+				st.push(parent[st.top()]);
+			}
+			cout << 1 << " ";
+			while(!st.empty()){
+				cout << st.top() << " ";
+				st.pop();
+			}
+			cout << 1;
+		}else cout << "NO";
+		cout << endl;
+		for (int i = 1; i <= v; i++) {
+            vis[i] = 0;
+            adj[i].clear();
+            parent[i] = 0;
+        }
+	}
+}
