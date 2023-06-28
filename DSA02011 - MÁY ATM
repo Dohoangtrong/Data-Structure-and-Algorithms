@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,s,arr[30], cnt;
+
+void process(int i, int sum, int j){
+	if ( sum == s ){
+		cnt = min(cnt,j);
+		return;
+	}
+	if ( sum > s || j > cnt ) return;
+	for ( int a = i; a < n; a++){
+		if ( sum + arr[a] <= s ){
+			process(a+1,sum+arr[a],j+1);
+		}
+	}
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		cnt = 40;
+		cin >> n >> s;
+		for ( int i = 0; i < n; i++) cin >> arr[i];
+		sort(arr,arr+n,[](int a, int b){return a>b;});
+		process(0,0,0);
+		if ( cnt == 40 ) cout << -1 << endl;
+		else cout << cnt << endl;
+	}
+}
+
+
