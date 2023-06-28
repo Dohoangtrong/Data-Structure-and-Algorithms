@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int dp(string s){
+	int l =s.length();
+	int F[l+1][l+1];
+	memset(F,0,sizeof(F));
+	for ( int i = l-2; i >= 0; i--){
+		for ( int j = i+1; j < l; j++){
+			if ( s[i] == s[j] ) F[i][j] = F[i+1][j-1];
+			else F[i][j] = min(F[i+1][j],F[i][j-1])+1;
+		}
+	}
+	return F[0][l-1];
+}
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		string s;
+		cin >> s;
+		cout << dp(s) << endl;
+	}
+}
+
+
+
