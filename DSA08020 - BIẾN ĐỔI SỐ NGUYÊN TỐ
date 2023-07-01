@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+int snt[10005] = {};
+void erast(){
+	snt[0] = 1, snt[1] = 1;
+	for ( int i = 2; i < 10005; i++){
+		if (!snt[i]){
+			for ( int j = i*i; j < 10005; j+=i )
+				snt[j] = 1;
+		}
+	}
+}
+
+bool check(string a){
+	int tmp = 0;
+	for ( int i = 0; i < 4; i++){
+		tmp = tmp * 10 + a[i] - '0';
+	}
+	if (snt[tmp] == 0) return true;
+	return false;
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+	int t;
+	cin >> t;
+	erast();
+	while(t--){
+		int cnt;
+		string a, b;
+		cin >> a >> b;
+		unordered_map<string,int> umap;
+		queue<pair<string,int>> Q;
+		pair<string,int> p;
+		Q.push({a,0});
+		umap[a] = 1;
+		while(1){
+			p = Q.front();
+			Q.pop();
+			a = p.first;
+			cnt = p.second;
+			if ( a == b ){
+				cout << cnt << endl;
+				break;
+			}
+			string b = a;
+			for ( int i = 1; i < 10; i++){
+				b[0] = char(i+'0');
+				if (check(b) && umap[b] == 0 ){
+					Q.push({b,cnt+1});
+					umap[b] = 1;
+				}
+			}
+			for ( int i = 1; i < 4; i++){
+				b = a;
+				for ( int j = 0; j < 10; j++){
+					b[i] = char(j+'0');
+					if (check(b) && umap[b] == 0 ){
+						Q.push({b,cnt+1});
+						umap[b] = 1;
+					}
+				}
+			}	
+		}
+	}
+}
+
