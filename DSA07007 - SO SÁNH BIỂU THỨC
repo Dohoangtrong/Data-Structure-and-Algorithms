@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+string process(string s){
+	string tmp = "";
+	stack<int>st1,st2;
+	for(int i = 0 ; i < s.size() ; i++){
+		if((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z')){
+			tmp += s[i] ;
+		}
+		else if (s[i] == '-'){
+ 			if(st2.empty() || st1.empty() || s[st1.top()] == '+'){
+ 				tmp +=  s[i] ;
+ 				st1.push(i);
+ 			}
+ 			else if( !st2.empty() && !st1.empty() && s[st1.top()] == '-'){
+ 				s[i] = '+';
+ 				tmp += s[i] ;
+ 				if(s[i+1] == '(')st1.push(i);
+ 			} 
+ 		}
+ 		else if(s[i] == '+'){
+ 			if(!st2.empty() && !st1.empty() && s[st1.top()] == '-'){
+ 				s[i] = '-';
+ 				tmp += s[i] ;
+ 				st1.push(i);
+ 			}
+ 			else {
+ 				tmp += s[i] ;
+ 				st1.push(i);
+ 			}
+ 		}
+ 		else if ( s[i] == '('){
+ 			st2.push(i);
+		}
+ 		else if(s[i] == ')'){
+ 			while(!st1.empty() && !st2.empty() &&st1.top() > st2.top() ) st1.pop();
+ 			st2.pop();
+ 		}
+ 	}
+ 	return tmp;
+}
+
+int main () {
+ 	int t ;
+ 	cin >> t ;
+ 	while(t--){
+		string a, b;
+		cin >> a >> b;
+		a = process(a);
+		b = process(b);
+		if ( a==b ) cout << "YES" << endl;
+		else cout << "NO" << endl;
+	}
+}
