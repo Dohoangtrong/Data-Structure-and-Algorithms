@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool check(int a, int b){
+	int mod;
+	while(a>0){
+		mod = a%10;
+		if ( mod == b ) return false;
+		a/=10;
+	}
+	return true;
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int a, b, cnt = 0, tmp, c;
+		cin >> a >> b;
+		queue<int> Q;
+		for ( int i = 1; i < 6; i++){
+			Q.push(i);
+		}
+		while(!Q.empty()){
+			tmp = Q.front();
+			Q.pop();
+			if ( tmp > b ) continue;
+			if ( tmp >= a && tmp <= b ) cnt++;
+			for ( int i = 0; i < 6; i++){
+				if ( check(tmp,i) ){
+					c = tmp * 10 + i;
+					Q.push(c);
+				}
+			}
+		}
+		cout << cnt << endl;
+	}
+}
+
