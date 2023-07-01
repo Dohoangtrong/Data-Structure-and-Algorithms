@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int a, b;
+		unordered_map<int,int> umap;
+		cin >> a;
+		queue<pair<int,int>> Q;
+		pair<int,int> p;
+		Q.push({a,0});
+		while(!Q.empty()){
+			p = Q.front();
+			a = p.first;
+			b = p.second;
+			Q.pop();
+			if ( a == 3 || a == 4 ){
+				cout << b+2 << endl;
+				break;
+			}
+			if ( umap[a-1] == 0 ){
+				umap[a-1] = 1;
+				Q.push({a-1,b+1});
+			}
+			for ( int i = sqrt(a); i > 1; i-- ){
+				if ( a % i == 0 && umap[a/i] == 0 ){
+					umap[a] = 1;
+					Q.push({a/i,b+1});
+				}
+			}
+		}
+	}
+}
+
