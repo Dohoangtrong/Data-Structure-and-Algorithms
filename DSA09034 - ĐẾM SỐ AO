@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n, m;
+int arr[105][105] = {};
+int dem = 0;
+
+void move(int i, int j){
+	arr[i][j] = 0;
+	for ( int a = 0; a < 3; a++){
+		for ( int b = 0; b < 3; b++){
+			if ( arr[i-1+a][j-1+b] == 1 ) move(i-1+a,j-1+b);
+		}
+	}
+}
+
+int main(){
+	cin >> n >> m;
+	cin.ignore();
+	char a;
+	for ( int i = 1; i <= n; i++){
+		for ( int j = 1; j <= m; j++){
+			cin >> a;
+			if ( a == 'W') arr[i][j] = 1;
+		}
+	}
+	for ( int i = 1; i <= n; i++){
+		for ( int j = 1; j <= m; j++){
+			if ( arr[i][j] == 1 ){
+				dem++;
+				move(i,j);
+			}
+		}
+	}
+	cout << endl << dem;
+}
