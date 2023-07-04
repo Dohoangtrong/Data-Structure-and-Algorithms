@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string rotageLx(string s){
+	string tmp = s; 
+	tmp[0] = s[3]; tmp[3] = s[4];
+	tmp[4] = s[1]; tmp[1] = s[0];
+	return tmp;
+}
+
+string rotageRx(string s){
+	string tmp = s;
+	tmp[2] = s[1]; tmp[1] = s[4]; 
+	tmp[4] = s[5]; tmp[5] = s[2];
+	return tmp;
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		int arr[6];
+		unordered_map<string,int> uMap;
+		string startS="", endS="";
+		for ( int i = 0; i < 6; i++){
+			cin >> arr[i];
+			startS += to_string(arr[i]);
+		}
+		for ( int i = 0; i < 6; i++){
+			cin >> arr[i];
+			endS += to_string(arr[i]);
+		}
+		string tmp, a;
+		int cnt;
+		pair<string,int> p;
+		queue<pair<string,int>>Q;
+		Q.push(make_pair(startS,0));
+		while(!Q.empty()){
+			p = Q.front();
+			Q.pop();
+			tmp = p.first;
+			cnt = p.second;
+			if ( endS == tmp ){
+				cout << cnt << endl;
+				break;
+			}
+			if ( uMap[tmp] == 0 ) uMap[tmp] = cnt;
+			if ( cnt < 9 ){
+				a = rotageLx(tmp); 
+				if ( uMap[a] == 0 ) Q.push(make_pair(a,cnt+1));
+				a = rotageRx(tmp);
+				if ( uMap[a] == 0 ) Q.push(make_pair(a,cnt+1));
+			}
+		}
+	}
+}
+
