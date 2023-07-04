@@ -1,0 +1,126 @@
+#include <bits/stdc++.h>
+using namespace std;
+int N, K, M;
+unordered_map<string,int> unor;
+vector<pair<int,int> > sheep;
+int cnt = 0;
+int arr[105][105];
+void move(int i, int j, int cp){
+	arr[i][j] = cp;
+	string s = "";
+	if ( i+1 <= N && arr[i+1][j] == 0 ){
+		s += to_string(i)+","+to_string(j)+","+to_string(i+1)+","+to_string(j);
+		if ( unor[s] != 1 ) move(i+1,j,cp);
+	}
+	if ( arr[i-1][j] == 0 && 0 < i-1 ){
+		s = "";
+		s += to_string(i-1)+","+to_string(j)+","+to_string(i)+","+to_string(j);
+		if ( unor[s] != 1 ) move(i-1,j,cp);
+	} 
+	if ( j+1 <= N && arr[i][j+1] == 0 ){
+		s = "";
+		s += to_string(i)+","+to_string(j)+","+to_string(i)+","+to_string(j+1);
+		if ( unor[s] != 1 ) move(i,j+1,cp);
+	} 
+	if ( arr[i][j-1] == 0 && 0 < j-1 ){
+		s = "";
+		s += to_string(i)+","+to_string(j)+","+to_string(i)+","+to_string(j-1);
+		if ( unor[s] != 1 ) move(i,j-1,cp);
+	} 
+}
+
+void process(){
+	int l = sheep.size();
+	int x, y, z, t;
+	for ( int i = 0; i < l-1; i++){
+		for ( int j = i+1; j < l; j++){
+			x = sheep[i].first;
+			y = sheep[i].second;
+			z = sheep[j].first;
+			t = sheep[j].second;
+			if ( arr[x][y] != arr[z][t] ){
+				cnt++;
+			}
+		}
+	}
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> N >> K >> M;
+    int x, y;
+    int a, b, c, d;
+    string cm;
+    // nhap vi tri rao chan
+    for ( int i = 0; i < M; i++){
+    	cm = "";
+    	cin >> a >> b >> c >> d;
+    	cm += to_string(a)+","+to_string(b)+","+to_string(c)+","+to_string(d);
+    	unor[cm] = 1;
+    	cm = "";
+    	cm += to_string(c)+","+to_string(d)+","+to_string(a)+","+to_string(b);
+    	unor[cm] = 1;
+	}
+	// nhap vi tri so cuu
+	for ( int i = 0; i < K; i++ ){
+		cin >> x >> y;
+		sheep.push_back(make_pair(x,y));
+	}
+	int dem = 1;
+	for ( int i = 1; i <= N; i++){
+		for ( int j = 1; j <= N; j++) arr[i][j] = 0;
+	}
+	for ( int i = 1; i <= N; i++){
+		for ( int j = 1; j <= N; j++){
+			if ( arr[i][j] == 0 ){
+				move(i,j,dem);
+				dem++;
+			}
+		}
+	}
+//	for ( int i = 1; i <= N; i++){
+//		for ( int j = 1; j <= N; j++){
+//			cout << arr[i][j] << " ";
+//		}
+//		cout << endl;
+//	}
+	process();
+	cout << endl << cnt << endl;
+}
+
+/*
+5 5 8
+1 4 2 4
+2 3 2 4
+2 4 2 5
+2 4 3 4
+4 3 4 4
+3 4 4 4
+5 3 5 4
+3 5 4 5
+2 2
+2 4
+4 2
+4 4
+5 5
+output:
+8
+
+input:
+4 3 9
+1 1 1 2
+1 2 2 2
+2 3 2 2
+2 2 3 2
+2 1 3 1
+2 3 1 3
+1 3 1 4
+2 3 3 3
+2 4 3 4
+1 1
+3 3
+2 4
+output:
+3
+*/
