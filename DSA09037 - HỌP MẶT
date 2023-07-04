@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+int v, e;
+int visited[1005];
+vector<int> adj[10005];
+int meet[1005];
+
+void DFS(int u){
+	visited[u] = 1;
+	meet[u]++;
+	for( auto x : adj[u] ){
+		if ( !visited[x] ){
+			DFS(x);
+		}	
+	}
+}
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	memset(meet,0,sizeof(meet));
+	int a, b, k, tmp;
+	cin >> k >> v >> e;
+	tmp = k;
+	vector<int> pos;
+	while(tmp--){
+		cin >> a;
+		pos.push_back(a);
+	}
+	for ( int i = 0; i < e; i++){
+		cin >> a >> b;
+		adj[a].push_back(b);
+	}
+	int l = pos.size();
+	for ( int i = 0; i < l; i++){
+		memset(visited,0,sizeof(visited));
+		DFS(pos[i]);
+	}
+	int cnt = 0;
+	for ( int i = 1; i <= v; i++ ){
+		if ( meet[i] == k ) cnt++;
+	}
+	cout << cnt;
+	for ( int i = 1; i <= v; i++ ) adj[i].clear();
+}
