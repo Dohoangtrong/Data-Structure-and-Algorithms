@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+int num[10] = {2,3,5,7,11,13,17,19,23,29};
+long long minInt;
+int n;
+void Try(long long i,int j, long long res){
+	if ( i > n ) return;
+	if ( i == n ){
+		minInt = min(minInt,res);
+		return;
+	}
+	for ( int k = 2; k <= n; k++){
+		if ( n % k == 0 ){
+			long long a = 1;
+			for ( int b = 1; b < k; b++){
+				a = a*num[j];
+				if ( a*res > minInt ) return; 
+			}
+			Try(i*k,j+1,res*a);
+		}
+	}
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int t;
+    cin >> t;
+    while (t--){
+    	minInt = 1e18;
+    	cin >> n;
+    	Try(1,0,1);
+    	cout << minInt << endl;
+    }
+}
+
+
