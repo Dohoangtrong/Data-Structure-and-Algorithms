@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+main(){
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while(t--){
+    	queue<pair<int,string> > Q;
+    	vector<vector<int>> num(2005);
+    	string cmp;
+    	int n;
+    	vector<pair<int,string>> v;
+    	cin >> n;
+    	int a, b;
+    	for ( int i = 0; i < n-1; i++){
+    		cin >> a >> b;
+    		num[a].push_back(b);
+    		
+		}
+		for ( int i = 0; i < num[1].size(); i++){
+			cmp = "1 ";
+			cmp += to_string(num[1][i]);
+			Q.push(make_pair(num[1][i],cmp));
+		}
+		pair<int,string> P;
+		while(!Q.empty()){
+			P = Q.front();
+			Q.pop();
+			a = P.first;
+			if ( num[a].empty() ) v.push_back(make_pair(a,P.second));
+			else{
+				for (int i = 0; i < num[a].size(); i++){
+					cmp = P.second;
+					cmp += " " + to_string(num[a][i]);
+					Q.push(make_pair(num[a][i],cmp));
+				}
+			}
+		}
+		int l = v.size();
+		sort(v.begin(),v.end());
+		for ( int i = 0; i < l; i++){
+			cout << v[i].second << endl;
+		}
+	}
+}
